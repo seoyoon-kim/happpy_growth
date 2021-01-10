@@ -194,11 +194,11 @@ LibDataSet.LibList.put(ISBN2, new LibVO(ISBN2, NewBookName, NewAuth, NewPubl, Ne
 				} 
 			}while(true);
 		}
-		else if(Num==2) { 이름으로 검색하는 법
+		else if(Num==2) { //이름으로 검색하는 법
 	
-		}else if(Num==3) { 아이디로 검색하는 법
+		}else if(Num==3) { //아이디로 검색하는 법
 		
-		}else if(Num==4) { 전화번호로 검색하는 법
+		}else if(Num==4) { //전화번호로 검색하는 법
 			
 		}
 				 
@@ -216,13 +216,13 @@ LibDataSet.LibList.put(ISBN2, new LibVO(ISBN2, NewBookName, NewAuth, NewPubl, Ne
 					break;
 				} 
 			}while(true);
-		}else if(Num==2) { 도서명으로 검색하는 법
+		}else if(Num==2) { //도서명으로 검색하는 법
 		
-		}else if(Num==3) { 저자로 검색하는 법
+		}else if(Num==3) { //저자로 검색하는 법
 	
-		}else if(Num==4) { 출판사로 검색하는 법
+		}else if(Num==4) { //출판사로 검색하는 법
 		
-		}else if(Num==5) { 대여 여부로 검색하는 법
+		}else if(Num==5) { //대여 여부로 검색하는 법
 		
 		}
 	}
@@ -327,7 +327,7 @@ LibDataSet.LibList.put(ISBN2, new LibVO(ISBN2, NewBookName, NewAuth, NewPubl, Ne
  
 	public void BookDel() {
 		String DelBName = conInput("삭제할 도서의 ISBN 번호를 입력하세요");
-		if(LibList.gettValue(DelBName ) { 		
+		if(LibList.getValue(DelBName ) { 		
 			LibDataset.LibList.remove(DelBName);	 
 		}
 		else if(!LibList.containsKey(DelBName)) {
