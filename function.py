@@ -247,3 +247,33 @@ import webbrowser
 webbrowser.open("http://google.com")
 webbrowser.open_new_tab("http://google.com")
 
+#구구단
+def Gugu(n):
+    print(n)
+    result = []
+    i = 1
+    while i < 10:
+        result.append(n*i)
+        i = i + 1
+    return result
+
+print(Gugu(2))
+
+#3과 5의 배수 합하기
+result1 = 0
+n = 1
+for n in range(1,1000):
+    if n % 3 == 0 or n % 5 == 0 :
+        result1 += n
+print(result1)
+
+
+#게시판 페이징하기
+
+def getTotalPage(m,n):
+    if m % n ==0 :
+        return m//n
+    else : 
+        return m//n + 1
+print(getTotalPage(5,10))
+
