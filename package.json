@@ -1,0 +1,23 @@
+{
+  "name": "react-app",
+  "version": "1.0.0",
+  "description": "desc",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run start",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seoyoon-kim/happpy_growth.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "seoyoon kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seoyoon-kim/happpy_growth/issues"
+  },
+  "homepage": "https://github.com/seoyoon-kim/happpy_growth#readme"
+}

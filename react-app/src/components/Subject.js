@@ -10,6 +10,7 @@ class Subject extends Component{
           }.bind(this)}>{this.props.title}</a></h1>
           {this.props.sub}  
         </header>
+        
       );
     }
   }

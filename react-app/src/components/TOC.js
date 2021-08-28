@@ -22,7 +22,7 @@ class TOC extends Component{
         <nav>
           <ul>
             {lists}
-          </ul>
+          </ul> 
         </nav>
       );
     }
