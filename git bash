@@ -1,0 +1,124 @@
+[33mcommit 206bce383198ca5c42fbebeb318a9d2b0920a05e[m[33m ([m[1;36mHEAD -> [m[1;32mpython[m[33m)[m
+Author: seoyoon-kim <godkmn1004@naver.com>
+Date:   Tue Aug 17 23:23:45 2021 +0900
+
+    08/17
+
+[33mcommit 59765f88759c8ebc557b4641c05d74be40b2b2ea[m
+Author: seoyoon-kim <76926158+seoyoon-kim@users.noreply.github.com>
+Date:   Mon Aug 16 21:38:30 2021 +0900
+
+    8/16
+
+[33mcommit a230ac9cf648f6e33b53edd967aa213835d7457f[m
+Author: seoyoon-kim <godkmn1004@naver.com>
+Date:   Thu Aug 12 20:48:28 2021 +0900
+
+    commit 8/12
+
+[33mcommit 2d2b915955d6ef7285e1f944221dba9221c9e9a4[m[33m ([m[1;31mpython/master[m[33m)[m
+Merge: 1a655fa b79cb9c
+Author: seoyoon-kim <godkmn1004@naver.com>
+Date:   Thu Aug 12 20:43:43 2021 +0900
+
+    Merge pull request #1 from seoyoon-kim/python
+    
+    .
+
+[33mcommit b79cb9c5e155d20e5774e45ddbfcbc6d550fe28f[m
+Author: seoyoon-kim <godkmn1004@naver.com>
+Date:   Wed Aug 11 23:29:36 2021 +0900
+
+    .
+
+[33mcommit 1a655faaf38546a462fbcaf2c2fead0b36caf05d[m
+Author: seoyoon-kim <godkmn1004@naver.com>
+Date:   Wed Aug 11 23:25:36 2021 +0900
+
+    test commit
+
+[33mcommit c6e834e8f3a13314c163efa947928fd4acaf2132[m
+Author: seoyoon-kim <godkmn1004@naver.com>
+Date:   Wed Aug 11 23:24:05 2021 +0900
+
+    test
+
+[33mcommit 8ce8ea55fa81dff19de4f48d1f2d2c3b0c1ebf20[m[33m ([m[1;31mpython/springboot[m[33m, [m[1;31mpython/Algorithm_Study[m[33m)[m
+Author: seoyoon-kim <76926158+seoyoon-kim@users.noreply.github.com>
+Date:   Sun Feb 28 19:17:01 2021 +0900
+
+    Delete LibMain.java
+
+[33mcommit a06738b9e03f6d3553e306bc899469143ffddc73[m
+Author: seoyoon-kim <76926158+seoyoon-kim@users.noreply.github.com>
+Date:   Sun Feb 28 19:16:54 2021 +0900
+
+    Delete MemVO.java
+
+[33mcommit e27325f69fb6790cd19d5c41c4fd4fbef36542b4[m
+Author: seoyoon-kim <76926158+seoyoon-kim@users.noreply.github.com>
+Date:   Sun Feb 28 19:16:42 2021 +0900
+
+    Delete MemDataSet.java
+
+[33mcommit 8c00a212f71b60e3ea6b5f1bf596b9f0c82f2d6c[m
+Author: seoyoon-kim <76926158+seoyoon-kim@users.noreply.github.com>
+Date:   Sun Feb 28 19:16:34 2021 +0900
+
+    Delete LibVO.java
+
+[33mcommit f91279cc8e316df843adb64be842f89f2eb778f1[m
+Author: seoyoon-kim <76926158+seoyoon-kim@users.noreply.github.com>
+Date:   Sun Feb 28 19:16:22 2021 +0900
+
+    Delete LibLogin.java
+
+[33mcommit 94c0ee2f135ded3ac0f1267c37c0372d8f53596a[m
+Author: seoyoon-kim <76926158+seoyoon-kim@users.noreply.github.com>
+Date:   Sun Feb 28 19:16:11 2021 +0900
+
+    Delete LibDataSet.java
+
+[33mcommit 5401b76baca9baef9d4bb18fda7e9c37472dc641[m
+Author: seoyoon-kim <76926158+seoyoon-kim@users.noreply.github.com>
+Date:   Sat Jan 16 10:39:55 2021 +0900
+
+    Done
+
+[33mcommit 474a32b304300f394b94e260eff5dd20ff974e41[m
+Author: seoyoon-kim <76926158+seoyoon-kim@users.noreply.github.com>
+Date:   Sun Jan 10 17:08:44 2021 +0900
+
+    edit
+
+[33mcommit 1064c8d7c1b2287fc514f28ee9263a33d930ff5d[m
+Author: seoyoon-kim <76926158+seoyoon-kim@users.noreply.github.com>
+Date:   Sun Jan 10 15:14:43 2021 +0900
+
+    delete
+
+[33mcommit 34783af74b0791c90c43911e3a4193627ab92aac[m
+Author: seoyoon-kim <76926158+seoyoon-kim@users.noreply.github.com>
+Date:   Sun Jan 10 14:59:15 2021 +0900
+
+    Library Management
+    
+    Library Management
+
+[33mcommit a0026f4f520fc78d7897eae4c2e94f96af0bfd82[m
+Author: seoyoon-kim <76926158+seoyoon-kim@users.noreply.github.com>
+Date:   Wed Jan 6 21:31:36 2021 +0900
+
+    Delete aaaaa.txt
+
+[33mcommit 343cb73eef541ea57b0100e6c96b11ac7491a6e5[m
+Author: seoyoon-kim <godkmn1004@naver.com>
+Date:   Wed Jan 6 21:24:21 2021 +0900
+
+    Test
+
+[33mcommit 2404ab8bbcf7ca99a15bf66c931858b9fdc0a2e9[m
+Author: seoyoon-kim <godkmn1004@naver.com>
+Date:   Wed Jan 6 21:11:08 2021 +0900
+
+    Add Test File [ddd.txt]
