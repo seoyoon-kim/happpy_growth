@@ -71,8 +71,7 @@
         // title(newVal, oldVal){
         //     console.log("title", newVal);
         // }
-    },
-      
+    }, 
     created() {
         this.getDate();
         //setInterval(this.getDate, 100); 
