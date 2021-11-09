@@ -1,0 +1,45 @@
+ 
+
+nav{
+    @include box(1443px, 110px);  
+    background-color: #ffffff;
+}
+nav ul{
+    margin: 42px 0 41px 40px;
+    display: flex;
+}
+nav li:nth-of-type(1){
+    background-image: url( "assets/images/surro_logo.png" );
+    @include box(150px, 27px); 
+    margin-right:163px;
+}
+nav li:not(nav li:nth-of-type(1), not nav li:nth-of-type(5)){
+    @include box(45px, 21px); 
+    @include normal-font-style;
+    margin-right: 60px; 
+    color: $orange;
+}
+
+nav input{
+    @include box(738px, 60px); 
+    @include position-relative(-17px, 0);
+    background-color: #f8f7f9;
+    border-radius: 8px;
+    padding-left:68px;
+
+    &:focus{
+        outline: none;
+    } 
+
+    &::placeholder { 
+        color: #888d95;
+    }
+}
+
+nav li:nth-of-type(5){
+    img{
+        @include box(16px, 16px);  
+        @include position-relative(-53px, 36px);
+        opacity: 0.41;  
+    }
+}

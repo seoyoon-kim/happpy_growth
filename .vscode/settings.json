@@ -1,0 +1,20 @@
+{
+    "git.ignoreLimitWarning": true,
+    "liveSassCompile.settings.formats":[
+        
+        {
+            "format": "expanded",
+            "extensionName": ".css",
+            "savePath": "~/../"
+        },
+        {
+            "format": "compressed",
+            "extensionName": ".min.css",
+            "savePath": "~/../"
+        }
+    ],
+    "liveSassCompile.settings.generateMap": false,
+    "liveSassCompile.settings.includeItems":[	// 경로에 있는 .scss파일만 컴파일
+        "/assets/style/ *.scss"
+    ]
+}

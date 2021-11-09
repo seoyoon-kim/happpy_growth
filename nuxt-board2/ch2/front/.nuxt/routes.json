@@ -1,0 +1,23 @@
+[
+  {
+    "name": "profile",
+    "path": "/profile",
+    "component": "C:\\\\Users\\\\김서윤\\\\Desktop\\\\sykim\\\\Training\\\\nuxt_training\\\\nuxt-board\\\\happpy_growth\\\\nuxt-board2\\\\ch2\\\\front\\\\pages\\\\profile.vue",
+    "chunkName": "pages/profile",
+    "_name": "_1870672e"
+  },
+  {
+    "name": "signup",
+    "path": "/signup",
+    "component": "C:\\\\Users\\\\김서윤\\\\Desktop\\\\sykim\\\\Training\\\\nuxt_training\\\\nuxt-board\\\\happpy_growth\\\\nuxt-board2\\\\ch2\\\\front\\\\pages\\\\signup.vue",
+    "chunkName": "pages/signup",
+    "_name": "_2df7d3f0"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\Users\\\\김서윤\\\\Desktop\\\\sykim\\\\Training\\\\nuxt_training\\\\nuxt-board\\\\happpy_growth\\\\nuxt-board2\\\\ch2\\\\front\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "_name": "_09d9b912"
+  }
+]

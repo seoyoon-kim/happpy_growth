@@ -1,0 +1,37 @@
+$orange:#fe5f00; 
+
+@mixin box($w, $h){
+    width:$w;
+    height:$h;
+}
+
+@mixin normal-font-style{
+    font-size:15px;
+    font-family: Poppins;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+@mixin position-relative($top, $left){
+    position:relative;
+    top: $top;
+    left: $left;
+}
+
+*{
+    margin:0;
+    padding:0;
+    list-style-type: none;
+}
+
+  
+
+#main-banner{
+    background-image: url( "assets/images/main_banner.png" );
+    @include box(1363px, 272px);  
+    padding-left: 140px;
+    margin-left: 40px;
+ }
+
+
