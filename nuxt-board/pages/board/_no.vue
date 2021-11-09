@@ -31,7 +31,7 @@
                             {{content.contents}}
                         </article> 
                     </li>   
-                    <li>댓글 <span id="count">0</span></li>  
+                    <li>댓글</li>  
                 </ul>  
             </div>    
             <div id="replyBox">
@@ -41,9 +41,9 @@
                     <li>{{reply.date}}</li>
                 </ul> 
                 <ul id="writeReply">
-                    <li><input type="text" placeholder="┗ 댓글을 입력하세요"></li>
-                    <li><input type="text" placeholder="ID를 입력하세요"></li>
-                    <li><button class="btn" id="replyWrite">댓글쓰기</button></li>
+                    <li><input type="text" placeholder="┗ 댓글을 입력하세요" v-model="newReplyContent" ></li>
+                    <li><input type="text" placeholder="ID를 입력하세요" v-model="replyId"></li>
+                    <li><button class="btn" id="replyWrite" @click="doWriteComment">댓글쓰기</button></li>
                 </ul>
             </div>    
         </div>    
@@ -60,19 +60,32 @@
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex' 
  
 export default { 
-    name: 'boardRead', 
+    name: 'boardRead',
+    data() {
+      return {
+            replyNo: '',
+            listNo:'',
+            replyId: '',
+            newReplyContent: '',
+            replyDate:''
+      };
+    },
     async asyncData(){ 
-        const list = $nuxt.$store.getters.list; 
+        const list = $nuxt.$store.getters.list;  
         const param = $nuxt.$route.params.no; 
         const content = await list.filter( l => l.no.toString() === param)[0]; 
         const replies = $nuxt.$store.getters.replies; 
         const replyContent = await replies.filter( r => r.listNo.toString() === param); 
+        
         return { param, content, replyContent } 
     }, 
-    computed: {
-        ...mapGetters({
-           // lists: 'list',//리턴해오는 변수명: '경로명/함수명'
-        }),
+    watch: { //watch
+        newReplies(newVal, oldVal){
+            console.log("watch", newVal);
+        }
+    },    
+    created() {
+        this.getDate();  
     },
     methods: {   
         goLists(){ 
@@ -81,17 +94,56 @@ export default {
             }) 
         },   
         doDelete(){ 
-            //this.list.splice(this.index,1);
-            //console.log(this.lists);
-            // this.$router.push({
-            // path: '/'
-            // }) 
+            this.$store.dispatch('doDelete', {
+                no:this.content.no
+            })
+            .then(() => {
+                this.$router.push({
+                path: '/board'
+            })
+            }) 
+            .catch(() => {
+            });
         },  
-        doReplyWrite(){   
-        } 
-    } 
-}
+        getDate() { 
+            const today = new Date();
+            let year =  today.getFullYear();
+            let month = today.getMonth() + 1;
+            let day =  today.getDate();
 
+            function getDigit( num ){ 
+                if( 9 < parseInt(num) ){
+                    return num;
+                } 
+                return "0" + num;
+            } 
+            this.date= [year, getDigit(month), getDigit(day)].join("/");
+        },  
+
+        
+        async doWriteComment(){ 
+            const replies = $nuxt.$store.getters.replies; 
+            const nextReplyNo = replies.length+1;  
+        
+            let newReplyContent ={
+                replyNo: nextReplyNo,
+                listNo:this.content.no,
+                replyId: this.replyId,
+                newReplyContent: this.newReplyContent,
+                replyDate:this.date
+            }     
+            this.$store.dispatch("doWriteComment", newReplyContent); 
+            let newReplies = await $nuxt.$store.getters.replies; 
+            
+            this.newReplies =  newReplies.filter( r => r.listNo.toString() === $nuxt.$route.params.no); 
+
+
+        },   
+    
+            
+         
+    }
+}
 </script>
 <style scoped>
 
@@ -235,4 +287,3 @@ input[type=submit], .delete-btn, .edit-btn{
     border:1px gray solid;
 }
 </style>
- 

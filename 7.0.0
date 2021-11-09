@@ -1,8 +1,0 @@
-+ eslint@8.2.0
-added 63 packages from 45 contributors and audited 1329 packages in 6.956s
-
-112 packages are looking for funding
-  run `npm fund` for details
-
-found 16 vulnerabilities (5 moderate, 11 high)
-  run `npm audit fix` to fix them, or `npm audit` for details

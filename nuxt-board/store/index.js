@@ -43,78 +43,78 @@ export const state = () => ( {
   ],
   replies:[
     {
-      no: 1,
+      replyNo: 1,
       listNo:1,
-      id: "user1",
+      replyId: "user1",
       replyContent: "게시글1의 리플1",
-      date: "2021/09/11"
+      replyDate: "2021/09/11"
     },
     {
-      no: 2,
+      replyNo: 2,
       listNo:1,
-      id: "user1",
+      replyId: "user1",
       replyContent: "게시글1의 리플2",
-      date: "2021/09/11"
+      replyDate: "2021/09/11"
     },
     {
-      no: 3,
+      replyNo: 3,
       listNo:3,
-      id: "user1",
+      replyId: "user1",
       replyContent: "게시글3의 리플3",
-      date: "2021/09/11"
+      replyDate: "2021/09/11"
     },
     {
-      no: 4,
+      replyNo: 4,
       listNo:2,
-      id: "user1",
+      replyId: "user1",
       replyContent: "게시글2의 리플2",
-      date: "2021/09/11"
+      replyDate: "2021/09/11"
     },
     {
-      no: 5,
+      replyNo: 5,
       listNo:3,
-      id: "user1",
+      replyId: "user1",
       replyContent: "게시글3의 리플1",
-      date: "2021/09/11"
+      replyDate: "2021/09/11"
     },
     {
-      no: 6,
+      replyNo: 6,
       listNo:3,
-      id: "user1",
+      replyId: "user1",
       replyContent: "게시글3의 리플2",
-      date: "2021/09/11"
+      replyDate: "2021/09/11"
     },
     
     {
-      no: 7,
+      replyNo: 7,
       listNo:4,
-      id: "user1",
+      replyId: "user1",
       replyContent: "게시글4의 리플1",
-      date: "2021/09/11"
+      replyDate: "2021/09/11"
     },
     
     {
-      no: 8,
+      replyNo: 8,
       listNo:4,
-      id: "user1",
+      replyId: "user1",
       replyContent: "게시글4의 리플2",
-      date: "2021/09/11"
+      replyDate: "2021/09/11"
     },
     
     {
-      no: 9,
+      replyNo: 9,
       listNo:5,
-      id: "user1",
+      replyId: "user1",
       replyContent: "게시글5의 리플1",
-      date: "2021/09/11"
+      replyDate: "2021/09/11"
     },
     
     {
-      no: 10,
+      replyNo: 10,
       listNo:5,
-      id: "user1",
+      replyId: "user1",
       replyContent: "게시글5의 리플2",
-      date: "2021/09/11"
+      replyDate: "2021/09/11"
     },
   ]
 })
@@ -131,11 +131,11 @@ export const mutations = {
     state.replyCount = param.replyCount
   },   
   getReplyLists(state, param){
-    state.no = param.no,
+    state.replyNo = param.no,
     state.listNo = param.listNo,
-    state.id = param.id,
+    state.replyId = param.id,
     state.replyContent = param.replyContent,
-    state.date = state.date
+    state.replyDate = state.date
   }, 
   doWrite(state, param){  
     state.lists.push(param)  
@@ -145,6 +145,15 @@ export const mutations = {
     state.lists[param.no-1] = param;
     // console.log("새로운 param", param); 
     // console.log("기존의 state.list",state.lists[param.no-1]);
+  }, 
+  doDelete(state, param){
+    const index = state.lists.findIndex(l => l.no === param);
+    state.lists.splice(index, 1);
+    console.log(state.lists);
+  },  
+  doWriteComment(state, newReplyContent){  
+    state.replies.push(newReplyContent)   
+    console.log(state.replies);
   }  
 }
    
@@ -180,7 +189,13 @@ export const actions = {
 
   doUpdate({ commit, state }, param){
     commit('doUpdate', param);  
-  }
+  },
+  doDelete({commit}, param){ 
+    commit('doDelete', param.no);
+  },
+  doWriteComment({ commit, state }, param) {  
+      commit('doWriteComment', param);  
+    }
 }
 
 export const getters = {
