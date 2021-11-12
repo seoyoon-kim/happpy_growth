@@ -21,18 +21,8 @@
                 <li>{{list.replyCount}}</li> 
             </ul> 
         </div> 
-        <div class="searchBox">
-            <form method="get" id="searchForm" action="#">
-                <select name="searchKey">
-                    <option value="subject">제목</option>
-                    <option value="userid">작성자</option>
-                    <option value="contents">글내용</option>
-                </select>			
-                <input type="text" name="searchWord" id="searchWord"/>
-                <input type="submit" value="Search"/>
-            </form> 
-                <input type="submit" value="글쓰기" class="btn list-btn" @click="goWrite"/>
-            
+        <div class="searchBox"> 
+            <input type="submit" value="글쓰기" class="btn list-btn" @click="goWrite"/>
         </div>  
   </div>
 </template>
@@ -155,11 +145,8 @@
     .searchBox{
         margin-top:20px;
         display: flex; 
-        padding-left:10px;
-    } 
-    .searchBox form{
-        width:400px;
-    }
+        padding-left:300px;
+    }  
     .btn{
         border-radius: 4px; 
         -webkit-appearance: none;
@@ -179,6 +166,6 @@
     input{
       border:1px black solid;
       border-radius: 5px;
-      padding:2px;
+      padding:2px; 
     }  
 </style>

@@ -29,9 +29,9 @@ $orange:#fe5f00;
 
 #main-banner{
     background-image: url( "assets/images/main_banner.png" );
-    @include box(1363px, 272px);  
-    padding-left: 140px;
+    @include box(1363px, 272px);   
     margin-left: 40px;
+    border:2px red solid;
  }
 
 

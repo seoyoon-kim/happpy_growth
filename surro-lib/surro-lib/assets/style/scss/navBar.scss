@@ -1,4 +1,4 @@
- 
+@import "mainPage.scss"; 
 
 nav{
     @include box(1443px, 110px);  
@@ -7,18 +7,23 @@ nav{
 nav ul{
     margin: 42px 0 41px 40px;
     display: flex;
+    color: $orange;
+    @include normal-font-style;
 }
 nav li:nth-of-type(1){
     background-image: url( "assets/images/surro_logo.png" );
     @include box(150px, 27px); 
     margin-right:163px;
 }
-nav li:not(nav li:nth-of-type(1), not nav li:nth-of-type(5)){
-    @include box(45px, 21px); 
-    @include normal-font-style;
+nav li:nth-of-type(2){
+    @include box(44px, 19px);  
     margin-right: 60px; 
-    color: $orange;
 }
+nav li:nth-of-type(3){
+    @include box(49px, 19px);  
+    margin-right: 64px; 
+}
+ 
 
 nav input{
     @include box(738px, 60px); 

@@ -1,3 +1,5 @@
+export const strict = false
+
 export const state = () => ( {   
   lists:[
     {
@@ -5,40 +7,35 @@ export const state = () => ( {
       id: "이나",
       title: "게시판 제목 1",
       contents: "게시판 내용1",
-      date: "2021/09/11",
-      replyCount:0
+      date: "2021/09/11", 
     },
     {
       no: 2,
       id: "탁우",
       title: "게시판 제목 2",
       contents: "게시판 내용2",
-      date: "2021/09/12",
-      replyCount:0
+      date: "2021/09/12", 
     },
     {
       no: 3,
       id: "지혜",
       title: "게시판 제목 3",
       contents: "게시판 내용3",
-      date: "2021/10/13",
-      replyCount:0
+      date: "2021/10/13", 
     },
     {
       no: 4,
       id: "채우",
       title: "게시판 제목 4",
       contents: "게시판 내용4",
-      date: "2021/08/14",
-      replyCount:0
+      date: "2021/08/14", 
     },
     {
       no: 5,
       id: "예나",
       title: "게시판 제목 5",
       contents: "게시판 내용5",
-      date: "2021/02/15",
-      replyCount:0
+      date: "2021/02/15", 
     }
   ],
   replies:[
@@ -122,38 +119,21 @@ export const state = () => ( {
  
  
 export const mutations = {
-
-  getLists(state, param){
-    state.no = param.no,
-    state.id = param.id,
-    state.title = param.title,
-    state.contents = param.contents
-    state.replyCount = param.replyCount
-  },   
-  getReplyLists(state, param){
-    state.replyNo = param.no,
-    state.listNo = param.listNo,
-    state.replyId = param.id,
-    state.replyContent = param.replyContent,
-    state.replyDate = state.date
-  }, 
+   
   doWrite(state, param){  
-    state.lists.push(param)  
-    console.log(state.lists);
+    state.lists.push(param)   
   },
-  doUpdate(state, param){    
+  doUpdate(state, param){  
     state.lists[param.no-1] = param;
     // console.log("새로운 param", param); 
-    // console.log("기존의 state.list",state.lists[param.no-1]);
+    //console.log("기존의 state.list",state.lists[param.no-1]);
   }, 
   doDelete(state, param){
     const index = state.lists.findIndex(l => l.no === param);
-    state.lists.splice(index, 1);
-    console.log(state.lists);
+    state.lists.splice(index, 1); 
   },  
-  doWriteComment(state, newReplyContent){  
-    state.replies.push(newReplyContent)   
-    console.log(state.replies);
+  doWriteComment(state, replyContent){  
+    state.replies.push(replyContent);    
   }  
 }
    
@@ -180,14 +160,13 @@ export const actions = {
    } 
     param.no = state.lists.length + 1;
 
-    const today = getToday();
-    // console.log("today", today);
+    const today = getToday(); 
     param.date = today;
 
     commit('doWrite', param);  
   } , 
 
-  doUpdate({ commit, state }, param){
+  doUpdate({ commit }, param){
     commit('doUpdate', param);  
   },
   doDelete({commit}, param){ 
@@ -201,6 +180,8 @@ export const actions = {
 export const getters = {
   list (state){   
    let list = JSON.parse(JSON.stringify( state.lists)) ;
+   //json.parse, stringifiy는 느리므로
+   //Object.assign({}, state.lists) 이용
    const replies = state.replies;
 
    list.forEach(c  => {
@@ -209,9 +190,6 @@ export const getters = {
    });
 
     return list;
-  },
-  replies(state){ 
-    return state.replies;
-  }
+  } 
 }
 

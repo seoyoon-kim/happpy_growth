@@ -23,9 +23,9 @@
                     </ul>
                     <div id="writeBox">
                          <ul id="writeArea">
-                            <li><label>{{content.no}}</label></li> 
-                            <li><input type="text" v-model="content.title" ></li>
-                            <li><label id="date">{{content.id}}</label> 
+                            <li><label>{{content.no}}</label></li>  
+                            <li><input type="text" v-model="content.title"></li> 
+                            <li><label id="id">{{content.id}}</label> 
                             <li><label id="date">{{content.date}}</label></li>
                         </ul>
                         <div id="writeContent">
@@ -43,55 +43,44 @@
 </template>
  
 <script>    
-  import { mapState, mapGetters } from 'vuex'
+  import { mapState } from 'vuex'
 
-  export default {    
+  export default {  
+      name:'boardEdit',
       data(){
         return{   
-            title: "",
-            contents: "", 
-            content: []
+            no:'',
+            id:'',
+            title:'',
+            contents:'',
+            date:'' 
         }
-      }, 
-      async asyncData(){ 
-        const list = $nuxt.$store.getters.list; 
-        const param = $nuxt.$route.params.no; 
-        const content = await list.filter( l => l.no.toString() === param)[0];    
-        return { param, content } 
-      }, 
+      },  
 
-    computed: { 
+    computed: {  
         ...mapState({
-        lists: state => state.writeContents 
-      }) ,
-       ...mapGetters({
-            lists: 'list' 
-         }),
-    },
-
-    watch:{
-        // title(newVal, oldVal){
-        //     console.log("title", newVal);
-        // }
+        content: state => state.lists.filter(l => l.no.toString() === $nuxt.$route.params.no)[0],
+        })  
     }, 
+
     methods: {      
         doUpdate(){   
             let param ={ 
-                contents: this.content.contents, 
-                date: this.content.date,
-                id: this.content.id,
                 no: this.content.no,
-                title: this.content.title
-            }     
+                title: this.content.title,
+                id: this.content.id,
+                contents: this.content.contents, 
+                date: this.content.date
+            }      
             this.$store.dispatch("doUpdate", param);  
-            
             this.$router.push({
-                path:'/board/no'   
-            }); 
+                 
+                path:'/board/'+$nuxt.$route.params.no   
+           }); 
         },  
         goBack(){
             this.$router.push({
-                path:'/board/no'  
+                path:'/board/'+$nuxt.$route.params.no     
             });
         }
     } 
@@ -124,9 +113,13 @@
     #writeArea li{ 
         padding: 7px 0 6px 20px;
         width:1770px;
+        font-size:16px;
     }  
     #writeArea li:not(#writeArea li:last-of-type){
         border-bottom: 1px solid lightgray;
+    }
+    #writeArea li:nth-of-type(3){ 
+        font-size: 14px;
     }
     #writeArea li:nth-of-type(4){ 
         border-bottom: 1px solid darkgray;
@@ -137,7 +130,7 @@
         left:100px;
     } 
     #bottomLine{
-        border-bottom: 1px solid gray; 
+       
         height:500px;
     }
     #writeSubject li{
@@ -180,14 +173,14 @@
         width:800px;
     } 
     .btn{
-    width:80px;
+        width:80px;
     }
     .edit-btn{
         margin-right: 30px;;
     }
     input[type=submit], .delete-btn, .edit-btn{
-    width:100px !important;
-    padding:10px 0 10px 0;
-    border-radius: 5px;
-    }
+        width:100px !important;
+        padding:10px 0 10px 0;
+        border-radius: 5px;
+    } 
 </style>

@@ -22,11 +22,11 @@
                     </li> 
                 </ul>
                 <ul id="readInfo">  
-                    <li>{{content.no}}</li>
-                    <li>{{content.title}}</li>
-                    <li>{{content.id}}</li>
-                    <li>{{content.date}}</li>  
-                    <li id="readContent"> 
+                    <li readonly>{{content.no}}</li>
+                    <li readonly>{{content.title}}</li>
+                    <li readonly>{{content.id}}</li>
+                    <li readonly>{{content.date}}</li>  
+                    <li id="readContent" readonly> 
                         <article>
                             {{content.contents}}
                         </article> 
@@ -35,10 +35,10 @@
                 </ul>  
             </div>    
             <div id="replyBox">
-                <ul class="replyContent" v-for="reply in replyContent" :key="reply.no">  
+                <ul class="replyContent" v-for="reply in repliyList" :key="reply.no">   
                     <li>{{reply.replyContent}}</li>  
-                    <li>{{reply.id}}</li>
-                    <li>{{reply.date}}</li>
+                    <li>{{reply.replyId}}</li>
+                    <li>{{reply.replyDate}}</li>
                 </ul> 
                 <ul id="writeReply">
                     <li><input type="text" placeholder="┗ 댓글을 입력하세요" v-model="newReplyContent" ></li>
@@ -63,30 +63,34 @@ export default {
     name: 'boardRead',
     data() {
       return {
+            no:'',
+            id:'',
+            title:'',
+            contents:'',
+            date:'',
             replyNo: '',
             listNo:'',
             replyId: '',
             newReplyContent: '',
-            replyDate:''
+            replyDate:'',  
       };
     },
-    async asyncData(){ 
-        const list = $nuxt.$store.getters.list;  
-        const param = $nuxt.$route.params.no; 
-        const content = await list.filter( l => l.no.toString() === param)[0]; 
-        const replies = $nuxt.$store.getters.replies; 
-        const replyContent = await replies.filter( r => r.listNo.toString() === param); 
-        
-        return { param, content, replyContent } 
-    }, 
-    watch: { //watch
-        newReplies(newVal, oldVal){
-            console.log("watch", newVal);
-        }
-    },    
+//    asyncData(){ 
+//         const list = $nuxt.$store.getters.list;  
+//        const param = $nuxt.$route.params.no; 
+//         const content = await list.filter( l => l.no.toString() === param)[0];  
+//       return {param}
+//           return { param, content } 
+//    }, 
     created() {
-        this.getDate();  
-    },
+        this.getDate();   
+    },  
+    computed:{
+        ...mapState({ 
+            content: state => state.lists.filter(l => l.no.toString() === $nuxt.$route.params.no)[0],
+            repliyList: state => state.replies.filter( r => r.listNo.toString() === $nuxt.$route.params.no)
+        }),          
+    },  
     methods: {   
         goLists(){ 
             this.$router.push({
@@ -118,30 +122,24 @@ export default {
                 return "0" + num;
             } 
             this.date= [year, getDigit(month), getDigit(day)].join("/");
-        },  
-
-        
+        },   
         async doWriteComment(){ 
-            const replies = $nuxt.$store.getters.replies; 
-            const nextReplyNo = replies.length+1;  
+            let replies = this.$store.state.replies; 
+            console.log(replies);
+            const nextReplyNo = replies.length+1;   
         
             let newReplyContent ={
                 replyNo: nextReplyNo,
                 listNo:this.content.no,
                 replyId: this.replyId,
-                newReplyContent: this.newReplyContent,
+                replyContent: this.newReplyContent,
                 replyDate:this.date
             }     
             this.$store.dispatch("doWriteComment", newReplyContent); 
-            let newReplies = await $nuxt.$store.getters.replies; 
             
-            this.newReplies =  newReplies.filter( r => r.listNo.toString() === $nuxt.$route.params.no); 
-
-
-        },   
-    
-            
-         
+            this.newReplyContent ="";
+            this.replyId ="";   
+        } 
     }
 }
 </script>
@@ -247,10 +245,11 @@ input:not(.searchBox input){
     display: inline-block;
 }
 .replyContent li:first-child{
-    width:1600px;
+    width:1300px;
 }
 .replyContent li:nth-of-type(2){
-    width:100px;
+    width:350px;
+    text-align: center;
 }
 .replyContent:not(.replyContent:last-child){
     border-bottom: lightgray 1px dotted;
@@ -261,12 +260,12 @@ input:not(.searchBox input){
     height:30px;
 }
 #writeReply input:nth-of-type(1){
-    width:1200px;
+    width:1360px;
     margin: 0 50px 0 30px;  
 } 
 #writeReply>li:nth-of-type(2)> input{
-    width:300px;
-    margin: 0 8px 0 30px;  
+    width:230px;
+    margin: 0 8px 0 30px;   
 }
 #writeReply button{
     padding: 0.2rem;
@@ -286,4 +285,7 @@ input[type=submit], .delete-btn, .edit-btn{
 #replyWrite{
     border:1px gray solid;
 }
+input:focus {
+    outline:none;
+} 
 </style>

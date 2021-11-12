@@ -23,10 +23,10 @@
                     </ul>
                     <div id="writeBox">
                         <ul id="writeArea">
-                            <li><label>{{lists.length+1}}</label> </li>
-                            <li><input type="text" placeholder="제목을 입력하세요" v-model="title" ></li>
-                            <li><input type="text" placeholder="아이디를 입력하세요" v-model="id" ></li>
-                            <li><label>{{date}}</label></li>  
+                            <li><label>{{lists.length+1}}</label> </li> 
+                            <li><li class="writeArea-li"><input type="text" placeholder="제목을 입력하세요" v-model="title"></li>  
+                            <li class="writeArea-li"><input type="text" placeholder="아이디를 입력하세요" v-model="id"></li> 
+                            <li id="writeArea-last-li"><label>{{date}}</label></li>  
                         </ul>
                         <div id="writeContent">  
                             <textarea cols="300" rows="20" placeholder="내용을 입력하세요" v-model="contents"></textarea> 
@@ -41,41 +41,38 @@
         </div> 
     </main> 
 </template>
+  
+<script>     
+  import { mapState, mapGetters } from 'vuex' 
  
-<script>    
-  import { mapState, mapGetters } from 'vuex'
+
+ 
+ 
 
   export default {   
-      data(){
+    data(){
         return{
             no: '', //화면에 띄워줄 경우  no: "1"
             id: "",
             title: "",
             contents: "",
-            date:""
-        }
-      }, 
+            date:"", 
+          
+            }
+    },  
     computed: { 
         ...mapState({
-        writeContents: state => state.writeContents
-
-    //...mapState(['num']) //num() { return this.$store.state.num; } 를 대체 
-    //...mapState(['auth', 'currentUser']) 
-      }) ,
+        writeContents: state => state.writeContents 
+        }) ,
        ...mapGetters({
             lists: 'list'
             // store에 폴더별로 생성할 경우 lists: 'board/board/list'
-         }),
-    },
-    watch:{
-        // title(newVal, oldVal){
-        //     console.log("title", newVal);
-        // }
+        }),
     }, 
     created() {
         this.getDate();
         //setInterval(this.getDate, 100); 
-    },
+    }, 
     methods: {    
         getDate() { 
             const today = new Date();
@@ -94,14 +91,14 @@
             //const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
             //const dateTime = date +' '+ time;
         }, 
-        doWrite(){ 
+        doWrite(){  
+
             let param ={
                 no: this.no,
                 id: this.id,
                 title: this.title,
                 contents: this.contents,
-            } 
-            // console.log("param", param);
+            }  
 
             this.$store.dispatch("doWrite", param); 
              
@@ -109,14 +106,7 @@
                 path:'/board' 
             });
                    
-        }, /*
-        ...mapMutations({
-            doWrite:'index/doWrite'  경로명/함수명?
-        }),
-        ...mapActions({
-            doWrite:'/doWrite' 경로명/함수명 ?
-        })  */
-
+        },   
     } 
   }
 </script>
@@ -147,10 +137,10 @@
         padding: 7px 0 6px 20px;
         width:1770px;
     }  
-    #writeArea li:not(#writeArea li:last-of-type){
-        border-bottom: 1px solid lightgray;
+    #writeArea li:not(#writeArea li:last-of-type), .writeArea-li{
+        border-bottom: 1px solid lightgray; 
     }
-    #writeArea li:nth-of-type(4){ 
+    #writeArea-last-li{ 
         border-bottom: 1px solid darkgray;
     }
     #writeBox{ 
