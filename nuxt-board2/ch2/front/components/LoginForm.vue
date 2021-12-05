@@ -59,7 +59,7 @@
         if (this.$refs.form.validate()) {
           this.$store.dispatch('users/logIn', {
             email: this.email,
-            nickname: 'growth',
+            nickname: '제로초',
           });
         }
       },
@@ -71,4 +71,5 @@
 </script>
 
 <style>
+
 </style>

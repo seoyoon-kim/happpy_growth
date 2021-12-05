@@ -1,4 +1,4 @@
- <template>
+<template>
   <v-list>
     <v-col v-for="user in users" :key="user.id" cols="12" md="4" style="display: inline-block">
       <v-list-item>

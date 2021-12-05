@@ -14,7 +14,7 @@
           :rules="[v => !!v.trim() || '내용을 입력하세요.']"
           @input="onChangeTextarea"
         /><!-- 띄어쓰기를 제거하고 한 글자도 없으면 '내용 입력' 메세지 출력-->
-        <v-btn type="submit" color="green" absolute right>쓰기</v-btn>
+       <v-btn type="submit" color="green" absolute right>짹짹</v-btn>
         <v-btn>이미지 업로드</v-btn>
       </v-form>
     </v-container>
@@ -23,7 +23,6 @@
 
 <script>
   import { mapState } from 'vuex';
-  
   export default {
     data() {
       return {
@@ -40,7 +39,7 @@
     methods: {
       onChangeTextarea(value) {
         if (value.length) { //한글자라도 입력했을 경우
-          this.hideDetails = true;
+           this.hideDetails = true;
           this.success = false;
           this.successMessages = '';
         }

@@ -53,14 +53,45 @@ export const mutations = {
 
 export const actions = {
   signUp({ commit, state }, payload) {
-    // 서버에 회원가입 요청을 보내는 부분
-    commit('setMe', payload);
+    this.$axios.post('http://localhost:3085/user', {
+      email: payload.email,
+      nickname: payload.nickname,
+      password: payload.password,
+    }, {
+      withCredentials: true,
+    })
+      .then((res) => {
+        commit('setMe', res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   },
   logIn({ commit }, payload) {
-    commit('setMe', payload);
+    this.$axios.post('http://localhost:3085/user/login', {
+      email: payload.email,
+      password: payload.password,
+    }, {
+      withCredentials: true,
+    })
+      .then((res) => {
+        commit('setMe', res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   },
-  logOut({ commit }, payload) {
-    commit('setMe', null);
+  logOut({ commit }) {
+    this.$axios.post('http://localhost:3085/user/logout', {}, {
+      withCredentials: true,
+    })
+      .then((data) => {
+        commit('setMe', null);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
   },
   changeNickname({ commit }, payload) {
     commit('changeNickname', payload);

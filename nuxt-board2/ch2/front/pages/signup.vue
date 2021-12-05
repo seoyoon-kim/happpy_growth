@@ -37,7 +37,7 @@
               v-model="terms"
               required
               :rules="[v => !!v || '약관에 동의해야 합니다.']"
-              label="건강한 인터넷 문화를 만들겠습니다."
+              label="제로초 말을 잘 들을 것을 약속합니다."
             />
             <v-btn color="green" type="submit">가입하기</v-btn>
           </v-form>
@@ -73,6 +73,20 @@
         ],
       };
     },
+    computed: {
+      me() {
+        return this.$store.state.users.me;
+      }
+    },
+    watch: {
+      me(value) {
+        if (value) {
+          this.$router.push({
+            path: '/',
+          });
+        }
+      }
+    },
     methods: {
       onSubmitForm() {
         if (this.$refs.form.validate()) {
@@ -96,8 +110,10 @@
         title: '회원가입',
       };
     },
+    middleware: 'anonymous',
   };
 </script>
 
 <style>
+
 </style>

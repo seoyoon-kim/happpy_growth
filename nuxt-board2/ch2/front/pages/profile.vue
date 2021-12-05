@@ -1,4 +1,4 @@
- <template>
+<template>
   <div>
     <v-container>
       <v-card style="margin-bottom: 20px">
