@@ -13,9 +13,12 @@ const postRouter = require('./routes/post');
 const app = express();
 
 db.sequelize.sync(); //db 실행
+//db.sequelize.sync({ force:true }); //서버 시작시마다 db 테이블 날리고 새로 만듦
 passportConfig();
 
-app.use(morgan('dev'));
+
+app.use(morgan('dev'));//보통 위에 작성. 서버에 요청이 왔을 때 콘솔에 기록해줌
+//메서드(get), 주소, 응답코드, 소요 시간, 응답 용량
 //app.use는 req, res를 조작
 app.use(cors({ //허용하는 주소 지정
   origin: 'http://localhost:3000',
@@ -52,7 +55,17 @@ app.post('/post', (req, res) => {
 
 app.post('/user', async (req, res, next)=>{
   try{
-    const hash = awiat bcrypt.hash(req.body.password, 12); //비밀번호 암호화, 숫자는 암호화 정도라 높을수록 암호화 강함
+    const hash = await bcrypt.hash(req.body.password, 12); //비밀번호 암호화, 숫자는 암호화 정도라 높을수록 암호화 강함
+    const exUser = await db.User.findOne({
+      email : req.body.email,
+    });
+    if(exUser){//이미 회원가입 되어있으면
+      return res.status(403).json({//403은 금ㄱ지
+        errorCode: 1,//임의 지정
+        message:'이미 회원가입 되어있습니다',
+      })
+      //return res.status(403).send('이미 회원가입 되어있습니다')//잘못된 요청
+    }
     const newUser = await db.User.create({
       email : req.body.email, 
       password : hash,
@@ -61,12 +74,23 @@ app.post('/user', async (req, res, next)=>{
     res.status(201).json(newUser); //200은 성공, 201은 성공적으로 생성됨
   }catch(err){
     console.log(err);
+    return res.status(500).json({
+      message:'회원가입 에러 발생'
+    });
     next(err);
   }
+});
+
+const user = {};
+
+app.post('/user/login', (req, res) => {
+  req.body.email;
+  req.body,password;
+  
 });
 
 app.listen(3085, () => {
   console.log(`백엔드 서버 ${3085}번 포트에서 작동중.`);
 });
 
-//모델 수정과 응답 종류
+ //로그인개념 이해하기
