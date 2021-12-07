@@ -291,7 +291,11 @@ export const mutations = {
   },  
   doWriteComment(state, replyContent){  
     state.replies.push(replyContent);    
-  }  
+  },
+  loadComments(state, replyConetent){
+    const index = state.replies.findIndex(v => v.no ===replyContent.no);
+    state.replies[index] = 
+  }
 }
    
 export const actions = {
