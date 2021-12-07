@@ -21,7 +21,7 @@
                         작성일
                     </li> 
                 </ul>
-                <ul id="readInfo">  
+                <ul class="readInfo">  
                     <li readonly>{{content.no}}</li>
                     <li readonly>{{content.title}}</li>
                     <li readonly>{{content.id}}</li>
@@ -36,14 +36,19 @@
             </div>    
             <div id="replyBox">
                 <ul class="replyContent" v-for="reply in repliyList" :key="reply.no">   
-                    <li>{{reply.replyContent}}</li>  
+                    <li>{{reply.replyContent}} <button class="btn replyWrite small" @click="showRereply">대댓글쓰기</button></li>  
                     <li>{{reply.replyId}}</li>
                     <li>{{reply.replyDate}}</li>
                 </ul> 
+                 <ul  id="writeRereply">
+                    <li class="reReply">┗ <input type="text" placeholder="대댓글을 입력하세요" v-model="replyContent" ></li>
+                    <li class="id"><input type="text" placeholder="ID를 입력하세요" v-model="replyId"></li>
+                    <li><button class="btn reReplyWrite" @click="doWriteComment">대댓글쓰기</button></li>
+                </ul>
                 <ul id="writeReply">
-                    <li><input type="text" placeholder="┗ 댓글을 입력하세요" v-model="newReplyContent" ></li>
-                    <li><input type="text" placeholder="ID를 입력하세요" v-model="replyId"></li>
-                    <li><button class="btn" id="replyWrite" @click="doWriteComment">댓글쓰기</button></li>
+                    <li><input type="text" placeholder="┗ 댓글을 입력하세요" v-model="replyContent" ></li>
+                    <li class="id"><input type="text" placeholder="ID를 입력하세요" v-model="replyId"></li>
+                    <li><button class="btn replyWrite" @click="doWriteComment">댓글쓰기</button></li>
                 </ul>
             </div>    
         </div>    
@@ -57,7 +62,7 @@
 </template>
  
 <script>  
-import { mapState, mapMutations, mapActions, mapGetters } from 'vuex' 
+import { mapState } from 'vuex' 
  
 export default { 
     name: 'boardRead',
@@ -70,8 +75,8 @@ export default {
             date:'',
             replyNo: '',
             listNo:'',
-            replyId: '',
-            newReplyContent: '',
+            replyId: '', 
+            replyContent: '',
             replyDate:'',  
       };
     },
@@ -125,20 +130,37 @@ export default {
         },   
         async doWriteComment(){ 
             let replies = this.$store.state.replies; 
-            console.log(replies);
+            // console.log("get All replies : ",replies);
             const nextReplyNo = replies.length+1;   
+            const oneMoreDepth = replies.depth+1;
         
             let newReplyContent ={
                 replyNo: nextReplyNo,
                 listNo:this.content.no,
+                // if(){
+
+                // }else{
+
+                // },
                 replyId: this.replyId,
-                replyContent: this.newReplyContent,
+                replyContent: this.replyContent,
                 replyDate:this.date
             }     
-            this.$store.dispatch("doWriteComment", newReplyContent); 
-            
-            this.newReplyContent ="";
-            this.replyId ="";   
+
+            if(!newReplyContent.replyId){
+                alert("아이디를 입력하세요");
+                // console.log(newReplyContent.replyContent);
+            }
+            else if(!newReplyContent.replyContent){
+                console.log( "replyContent",newReplyContent.replyContent);
+                alert("내용을 입력하세요");
+            } 
+            else {    
+                this.$store.dispatch("doWriteComment", newReplyContent); 
+                
+                this.replyContent ="";
+                this.replyId ="";   
+            }
         } 
     }
 }
@@ -167,22 +189,23 @@ input:not(.searchBox input){
 #readContainer{
     border-top: 1px solid gray; 
     border-bottom: 1px solid gray;  
+    width:1870px;
 } 
-#readInfo{
+.readInfo{
     width:1700px;
 }
-#readInfo li{ 
+.readInfo li{ 
     padding: 7px 0 6px 20px;
     width:1770px;
-    height:18px;
+    height:32px;
 }  
-#readInfo li:not(#readInfo li:nth-of-type(5)){
+.readInfo li:not(.readInfo li:nth-of-type(5)){
     border-bottom: 1px solid lightgray;
 }
-#readInfo li:nth-of-type(4){ 
+.readInfo li:nth-of-type(4){ 
     border-bottom: 1px solid darkgray;
 }
-#readInfo li:nth-of-type(6){ 
+.readInfo li:nth-of-type(6){ 
     border-top:1px solid darkgray;
     border-bottom:1px solid darkgray;
     padding:10px 0 10px 30px;
@@ -218,14 +241,14 @@ input:not(.searchBox input){
 .btnBox>form:nth-of-type(2){
     width:100px;
 } 
-#readInfo>li:nth-of-type(5){
+.readInfo>li:nth-of-type(5){
     padding: 0 10px; 
     margin-bottom: 30px;
 }
-#readInfo>li:nth-of-type(6){  
+.readInfo>li:nth-of-type(6){  
     position: relative;
     top:30px;
-
+    height: 40px;
 }
 .cancel-btn{ 
     margin-left:30px;
@@ -233,7 +256,7 @@ input:not(.searchBox input){
 /*Read의 댓글*/
 #replyBox{
     position: relative;
-    top:10px; 
+    top:5px; 
 }
 .replyContent{
     padding: 5px 0 5px 15px;
@@ -254,25 +277,47 @@ input:not(.searchBox input){
 .replyContent:not(.replyContent:last-child){
     border-bottom: lightgray 1px dotted;
 }
-#writeReply{
-    padding: 5px 0 10px 0;
+#writeReply, #writeRereply{ 
     display: flex;
-    height:30px;
+    height:40px;
+    padding-top:2px;
 }
-#writeReply input:nth-of-type(1){
-    width:1360px;
-    margin: 0 50px 0 30px;  
+
+#writeReply:not(#writeReply:last-child), #writeRereply:not(#writeRereply:last-child){ 
+    border-bottom: 1px dotted lightgray;
+}
+#writeReply input:nth-of-type(1), #writeRereply input:nth-of-type(1){
+    width:1340px;
+    margin: 5px 50px 0 30px;  
 } 
-#writeReply>li:nth-of-type(2)> input{
-    width:230px;
-    margin: 0 8px 0 30px;   
+#writeReply>li:nth-of-type(2)> input, #writeRereply>li:nth-of-type(2)> input{
+    width:150px;
+    padding-right: 20px;
+    padding-left:30px;
+    margin: 5px 75px 0 30px; 
 }
-#writeReply button{
+#writeReply button, #writeRereply button{
+    margin-top:2px;
     padding: 0.2rem;
     border-radius: 30px;
+    font-size:15px;
+}
+.reReply{
+    padding-left:50px;
+    padding-top:3px;
+    width:1420px;
+    font-size: 15px; 
+}
+.reReply input{
+    position: relative;
+    top:-18px;
 }
 .btn{
   width:80px;
+  border:1px solid lightgray !important;
+}
+.btn:hover{
+    background-color: lightgray; 
 }
 .edit-btn{
     margin-right: 30px;;
@@ -281,11 +326,24 @@ input[type=submit], .delete-btn, .edit-btn{
   width:100px !important;
   padding:10px 0 10px 0;
   border-radius: 5px;
+} 
+.small{
+    font-size:10px;
+    border-radius: 10px;
+    width:70px;
+    height: 20px;
+    margin-left:20px;
 }
-#replyWrite{
-    border:1px gray solid;
+.replyWrite{
+    margin-left:10px;
+}
+.reReplyWrite{
+    width:100px;
 }
 input:focus {
     outline:none;
 } 
+.id{
+    text-align: center;
+}
 </style>

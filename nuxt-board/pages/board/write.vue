@@ -23,8 +23,8 @@
                     </ul>
                     <div id="writeBox">
                         <ul id="writeArea">
-                            <li><label>{{lists.length+1}}</label> </li> 
-                            <li><li class="writeArea-li"><input type="text" placeholder="제목을 입력하세요" v-model="title"></li>  
+                            <li><label>{{getLists.length+1}}</label> </li> 
+                            <li class="writeArea-li"><input type="text" placeholder="제목을 입력하세요" v-model="title"></li>  
                             <li class="writeArea-li"><input type="text" placeholder="아이디를 입력하세요" v-model="id"></li> 
                             <li id="writeArea-last-li"><label>{{date}}</label></li>  
                         </ul>
@@ -45,8 +45,6 @@
 <script>     
   import { mapState, mapGetters } from 'vuex' 
  
-
- 
  
 
   export default {   
@@ -62,12 +60,16 @@
     },  
     computed: { 
         ...mapState({
-        writeContents: state => state.writeContents 
+        	writeContents: state => state.writeContents 
         }) ,
        ...mapGetters({
             lists: 'list'
             // store에 폴더별로 생성할 경우 lists: 'board/board/list'
-        }),
+        }), 
+		getLists() {
+			let lists = this.lists;
+			return lists;
+		}
     }, 
     created() {
         this.getDate();
@@ -89,7 +91,7 @@
             this.date= [year, getDigit(month), getDigit(day)].join("/");
             //const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
             //const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            //const dateTime = date +' '+ time;
+            //const dateTime = date +' '+ time; 
         }, 
         doWrite(){  
 
@@ -100,12 +102,22 @@
                 contents: this.contents,
             }  
 
-            this.$store.dispatch("doWrite", param); 
-             
-            this.$router.push({
-                path:'/board' 
-            });
-                   
+            if(!param.id){
+                alert("아이디를 입력하세요");
+            }
+            else if(!param.title){
+                alert("제목을 입력하세요");
+            }
+            else if(!param.contents){
+                alert("내용을 입력하세요");
+            }
+            else {       
+                this.$store.dispatch("doWrite", param); 
+                
+                this.$router.push({
+                    path:'/board' 
+                });
+            }      
         },   
     } 
   }
@@ -136,12 +148,16 @@
     #writeArea li{ 
         padding: 7px 0 6px 20px;
         width:1770px;
+        height:32px;
     }  
     #writeArea li:not(#writeArea li:last-of-type), .writeArea-li{
         border-bottom: 1px solid lightgray; 
     }
     #writeArea-last-li{ 
         border-bottom: 1px solid darkgray;
+    }
+    .writeArea-li input{
+        width:600px;
     }
     #writeBox{ 
         position: relative;
@@ -169,12 +185,25 @@
     .btnBox{
         display:flex;
         margin:30px 0 0 750px; 
-    }
+    } 
+	.btn{
+		border-radius: 4px; 
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		padding: 0.5rem 1rem;
+		width:100px; 
+		border: lightgray 1px solid !important; 
+	} 
+	.btn:hover{
+		background-color: lightgray;
+		font-weight: bold; 
+	}
     .btnBox>form:nth-of-type(2){
         width:100px;
     } 
     #writeArea>li:nth-of-type(4){
-        height:18px; 
+        height:32px; 
     }
     #writeArea>li:nth-of-type(5){
         padding: 0px; 

@@ -2,7 +2,7 @@
   <div> 
         <nav>    
             <h1>This is home</h1>
-            <NuxtLink to="/board">List</NuxtLink>
+            <NuxtLink to="/board">Click List</NuxtLink>
         </nav>    
   </div>
 </template>

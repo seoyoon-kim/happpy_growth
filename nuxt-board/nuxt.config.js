@@ -20,7 +20,7 @@ export default {
   ],
  
   plugins: [
-   
+ 
   ],
  
   components: true,
@@ -30,9 +30,16 @@ export default {
  
   modules: [ 
     '@nuxtjs/axios',
+    '@nuxtjs/vuetify',
   ],
  
   axios: {},
+
+  vuetify: {
+    // Vuetify options
+    //  theme: { }
+    theme: { disable: true },
+  },
  
   build: {
    

@@ -36,12 +36,133 @@ export const state = () => ( {
       title: "게시판 제목 5",
       contents: "게시판 내용5",
       date: "2021/02/15", 
+    },
+    {
+      no: 6,
+      id: "예나",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 7,
+      id: "예나",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 8,
+      id: "예나",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 9,
+      id: "예나",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 10,
+      id: "예나",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 11,
+      id: "예나",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 12,
+      id: "미나",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 13,
+      id: "예나",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 14,
+      id: "예나",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 15,
+      id: "예나",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 16,
+      id: "예나",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 17,
+      id: "예나",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 18,
+      id: "예열",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 19,
+      id: "예지",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 20,
+      id: "지나",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 21,
+      id: "나",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
+    },
+    {
+      no: 22,
+      id: "예",
+      title: "게시판 제목 5",
+      contents: "게시판 내용5",
+      date: "2021/02/15", 
     }
   ],
   replies:[
     {
       replyNo: 1,
       listNo:1,
+      depth : 1,
+      order : 1,
       replyId: "user1",
       replyContent: "게시글1의 리플1",
       replyDate: "2021/09/11"
@@ -49,6 +170,8 @@ export const state = () => ( {
     {
       replyNo: 2,
       listNo:1,
+      depth : 1,
+      order : 2,
       replyId: "user1",
       replyContent: "게시글1의 리플2",
       replyDate: "2021/09/11"
@@ -56,6 +179,8 @@ export const state = () => ( {
     {
       replyNo: 3,
       listNo:3,
+      depth : 1,
+      order : 1,
       replyId: "user1",
       replyContent: "게시글3의 리플3",
       replyDate: "2021/09/11"
@@ -63,13 +188,17 @@ export const state = () => ( {
     {
       replyNo: 4,
       listNo:2,
+      depth : 1,
+      order : 1,
       replyId: "user1",
-      replyContent: "게시글2의 리플2",
+      replyContent: "게시글2의 리플1",
       replyDate: "2021/09/11"
     },
     {
       replyNo: 5,
       listNo:3,
+      depth : 1,
+      order : 2,
       replyId: "user1",
       replyContent: "게시글3의 리플1",
       replyDate: "2021/09/11"
@@ -77,6 +206,8 @@ export const state = () => ( {
     {
       replyNo: 6,
       listNo:3,
+      depth : 1,
+      order : 3,
       replyId: "user1",
       replyContent: "게시글3의 리플2",
       replyDate: "2021/09/11"
@@ -85,6 +216,8 @@ export const state = () => ( {
     {
       replyNo: 7,
       listNo:4,
+      depth : 1,
+      order : 1,
       replyId: "user1",
       replyContent: "게시글4의 리플1",
       replyDate: "2021/09/11"
@@ -93,6 +226,8 @@ export const state = () => ( {
     {
       replyNo: 8,
       listNo:4,
+      depth : 1,
+      order : 2,
       replyId: "user1",
       replyContent: "게시글4의 리플2",
       replyDate: "2021/09/11"
@@ -101,6 +236,8 @@ export const state = () => ( {
     {
       replyNo: 9,
       listNo:5,
+      depth : 1,
+      order : 1,
       replyId: "user1",
       replyContent: "게시글5의 리플1",
       replyDate: "2021/09/11"
@@ -109,8 +246,28 @@ export const state = () => ( {
     {
       replyNo: 10,
       listNo:5,
+      depth : 1,
+      order : 2,
       replyId: "user1",
       replyContent: "게시글5의 리플2",
+      replyDate: "2021/09/11"
+    },
+    {
+      replyNo:11,
+      listNo:22,
+      depth : 1,
+      order : 1,
+      replyId: "user1",
+      replyContent: "게시글22의 리플1",
+      replyDate: "2021/09/11"
+    },
+    {
+      replyNo: 12,
+      listNo:22,
+      depth : 1,
+      order : 2,
+      replyId: "user1",
+      replyContent: "게시글22의 리플2",
       replyDate: "2021/09/11"
     },
   ]
@@ -188,7 +345,7 @@ export const getters = {
      const reply = replies.filter( r => r.listNo === c.no);
      c.replyCount = reply.length;
    });
-
+   
     return list;
   } 
 }
