@@ -57,7 +57,7 @@ app.post('/user', async (req, res, next)=>{
   try{
     const hash = await bcrypt.hash(req.body.password, 12); //비밀번호 암호화, 숫자는 암호화 정도라 높을수록 암호화 강함
     const exUser = await db.User.findOne({
-      email : req.body.email,
+      where:{ email : req.body.email }     
     });
     if(exUser){//이미 회원가입 되어있으면
       return res.status(403).json({//403은 금ㄱ지
@@ -84,8 +84,27 @@ app.post('/user', async (req, res, next)=>{
 const user = {};
 
 app.post('/user/login', (req, res) => {
-  req.body.email;
-  req.body,password;
+//   req.body.email;
+//   req.body,password;
+//   await db.User.findOne(); //세션에 저장
+//   user[cookie] = 유저정보;  //프런트에 쿠키 내려주기
+passport.authenticate('local', (err, user, info) => {//에러, 성공, 실패
+	if(err){
+		console.error(err);
+		return next(err);
+	}
+	if(info){
+		console.error(err);
+		return res.status(401).send(info.reason);//잘못된 요청으로 서버에서 거절
+	}
+	return req.login(user, async(err)=>{ //세션에 사용자 정보 저장(어떻게? serializeUser)
+		if(err){
+			console.error(err);
+			return next(err);
+		}	 
+		return res.json(user); //프론트에 사용자 정보 넘겨주기
+	})
+})(req, res, next);
   
 });
 
@@ -93,4 +112,4 @@ app.listen(3085, () => {
   console.log(`백엔드 서버 ${3085}번 포트에서 작동중.`);
 });
 
- //로그인개념 이해하기
+ 

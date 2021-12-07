@@ -14,6 +14,27 @@
     "_name": "_2df7d3f0"
   },
   {
+    "name": "hashtag-id",
+    "path": "/hashtag/:id",
+    "component": "C:\\\\Users\\\\김서윤\\\\Desktop\\\\sykim\\\\Training\\\\nuxt_training\\\\nuxt-board\\\\happpy_growth\\\\nuxt-board2\\\\ch2\\\\front\\\\pages\\\\hashtag\\\\_id\\\\index.vue",
+    "chunkName": "pages/hashtag/_id/index",
+    "_name": "_5b7e7ce4"
+  },
+  {
+    "name": "post-id",
+    "path": "/post/:id",
+    "component": "C:\\\\Users\\\\김서윤\\\\Desktop\\\\sykim\\\\Training\\\\nuxt_training\\\\nuxt-board\\\\happpy_growth\\\\nuxt-board2\\\\ch2\\\\front\\\\pages\\\\post\\\\_id\\\\index.vue",
+    "chunkName": "pages/post/_id/index",
+    "_name": "_3394dd30"
+  },
+  {
+    "name": "user-id",
+    "path": "/user/:id",
+    "component": "C:\\\\Users\\\\김서윤\\\\Desktop\\\\sykim\\\\Training\\\\nuxt_training\\\\nuxt-board\\\\happpy_growth\\\\nuxt-board2\\\\ch2\\\\front\\\\pages\\\\user\\\\_id\\\\index.vue",
+    "chunkName": "pages/user/_id/index",
+    "_name": "_41ba2e93"
+  },
+  {
     "name": "index",
     "path": "/",
     "component": "C:\\\\Users\\\\김서윤\\\\Desktop\\\\sykim\\\\Training\\\\nuxt_training\\\\nuxt-board\\\\happpy_growth\\\\nuxt-board2\\\\ch2\\\\front\\\\pages\\\\index.vue",
