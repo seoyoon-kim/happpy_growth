@@ -1,84 +1,75 @@
 <template>
-  <div style="margin-bottom: 20px">
+  <v-container v-if="!me">
     <v-card>
-      <v-img />
-      <v-card-text>
-        <div>
-          <h3>{{post.User.nickname}}</h3>
-          <div>{{post.content}}</div>
-        </div>
-      </v-card-text>
-      <v-card-actions>
-        <v-btn text color="orange">
-          <v-icon>mdi-twitter-retweet</v-icon>
-        </v-btn>
-        <v-btn text color="orange">
-          <v-icon>mdi-heart-outline</v-icon>
-        </v-btn>
-        <v-btn text color="orange" @click="onToggleComment">
-          <v-icon>mdi-comment-outline</v-icon>
-        </v-btn>
-        <v-menu offset-y open-on-hover>
-          <template v-slot:activator="{ on }">
-            <v-btn text color="orange" v-on="on">
-              <v-icon>mdi-dots-horizontal</v-icon>
-            </v-btn>
-          </template>
-          <div style="background: white">
-            <v-btn dark color="red" @click="onRemovePost">삭제</v-btn>
-            <v-btn text color="orange" @click="onEditPost">수정</v-btn>
-          </div>
-        </v-menu>
-      </v-card-actions>
+      <v-form ref="form" v-model="valid" @submit.prevent="onSubmitForm">
+        <v-container>
+          <v-text-field
+            v-model="email"
+            :rules="emailRules"
+            label="이메일"
+            type="email"
+            required
+          />
+          <v-text-field
+            v-model="password"
+            :rules="passwordRules"
+            label="비밀번호"
+            type="password"
+            required
+          />
+          <v-btn color="green" type="submit" :disabled="!valid">로그인</v-btn>
+          <v-btn nuxt to="/signup">회원가입</v-btn>
+        </v-container>
+      </v-form>
     </v-card>
-    <template v-if="commentOpened">
-      <comment-form :post-id="post.id" />
-      <v-list>
-        <v-list-item v-for="c in post.Comments" :key="c.id">
-          <v-list-item-avatar color="teal">
-            <span>{{c.User.nickname[0]}}</span>
-          </v-list-item-avatar>
-          <v-list-item-content>
-            <h3>{{c.User.nickname}}</h3>
-            <div>{{c.content}}</div>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </template>
-  </div>
+  </v-container>
+  <v-container v-else>
+    <v-card>
+      <v-container>
+        {{me.nickname}}님 로그인되었습니다.
+        <v-btn @click="onLogOut">로그아웃</v-btn>
+      </v-container>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
-  import CommentForm from '~/components/CommentForm';
   export default {
-    components: {
-      CommentForm,
-    },
-    props: {
-      post: {
-        type: Object,
-        required: true,
-      },
-    },
     data() {
       return {
-        commentOpened: false,
+        valid: false,
+        email: '',
+        password: '',
+        emailRules: [
+          v => !!v || '이메일은 필수입니다.',
+          v => /.+@.+/.test(v) || '이메일이 유효하지 않습니다.',
+        ],
+        passwordRules: [
+          v => !!v || '비밀번호는 필수입니다.',
+        ],
       };
     },
+    computed: {
+      me() {
+        return this.$store.state.users.me;
+      },
+    },
     methods: {
-      onRemovePost() {
-        this.$store.dispatch('posts/remove', {
-          id: this.post.id,
-        });
+      onSubmitForm() {
+        if (this.$refs.form.validate()) {
+          this.$store.dispatch('users/logIn', {
+            email: this.email,
+            nickname: '제로초',
+          });
+        }
       },
-      onEditPost() {
-      },
-      onToggleComment() {
-        this.commentOpened = !this.commentOpened;
+      onLogOut() {
+        this.$store.dispatch('users/logOut');
       },
     },
   };
 </script>
 
 <style>
+
 </style>
