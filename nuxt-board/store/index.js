@@ -162,7 +162,7 @@ export const state = () => ( {
       replyNo: 1,
       listNo:1,
       depth : 1,
-      order : 1,
+      replyGroup : 1,
       replyId: "user1",
       replyContent: "게시글1의 리플1",
       replyDate: "2021/09/11"
@@ -171,7 +171,7 @@ export const state = () => ( {
       replyNo: 2,
       listNo:1,
       depth : 1,
-      order : 2,
+      replyGroup : 2,
       replyId: "user1",
       replyContent: "게시글1의 리플2",
       replyDate: "2021/09/11"
@@ -180,7 +180,7 @@ export const state = () => ( {
       replyNo: 3,
       listNo:3,
       depth : 1,
-      order : 1,
+      replyGroup : 1,
       replyId: "user1",
       replyContent: "게시글3의 리플3",
       replyDate: "2021/09/11"
@@ -189,7 +189,7 @@ export const state = () => ( {
       replyNo: 4,
       listNo:2,
       depth : 1,
-      order : 1,
+      replyGroup : 1,
       replyId: "user1",
       replyContent: "게시글2의 리플1",
       replyDate: "2021/09/11"
@@ -198,7 +198,7 @@ export const state = () => ( {
       replyNo: 5,
       listNo:3,
       depth : 1,
-      order : 2,
+      replyGroup : 2,
       replyId: "user1",
       replyContent: "게시글3의 리플1",
       replyDate: "2021/09/11"
@@ -207,69 +207,101 @@ export const state = () => ( {
       replyNo: 6,
       listNo:3,
       depth : 1,
-      order : 3,
+      replyGroup : 3,
       replyId: "user1",
       replyContent: "게시글3의 리플2",
       replyDate: "2021/09/11"
-    },
-    
+    }, 
     {
       replyNo: 7,
       listNo:4,
       depth : 1,
-      order : 1,
+      replyGroup : 1,
       replyId: "user1",
       replyContent: "게시글4의 리플1",
       replyDate: "2021/09/11"
-    },
-    
+    }, 
     {
       replyNo: 8,
       listNo:4,
       depth : 1,
-      order : 2,
+      replyGroup : 2,
       replyId: "user1",
       replyContent: "게시글4의 리플2",
       replyDate: "2021/09/11"
-    },
-    
+    }, 
     {
       replyNo: 9,
       listNo:5,
       depth : 1,
-      order : 1,
+      replyGroup : 1,
       replyId: "user1",
-      replyContent: "게시글5의 리플1",
+      replyContent: "게시글5의 리플1, depth 1",
       replyDate: "2021/09/11"
-    },
-    
+    }, 
     {
       replyNo: 10,
       listNo:5,
       depth : 1,
-      order : 2,
+      replyGroup : 2,
       replyId: "user1",
-      replyContent: "게시글5의 리플2",
+      replyContent: "게시글5의 리플2, depth 1",
       replyDate: "2021/09/11"
     },
     {
       replyNo:11,
       listNo:22,
-      depth : 1,
-      order : 1,
+      depth : 0,
+      replyGroup : 0,
       replyId: "user1",
-      replyContent: "게시글22의 리플1",
+      replyContent: "게시글22의 리플1, depth 0",
       replyDate: "2021/09/11"
     },
     {
       replyNo: 12,
       listNo:22,
       depth : 1,
-      order : 2,
+      replyGroup : 0,
       replyId: "user1",
-      replyContent: "게시글22의 리플2",
+      replyContent: "게시글22의 리플2, depth 1",
       replyDate: "2021/09/11"
     },
+    {
+      replyNo: 13,
+      listNo:22,
+      depth : 2,
+      replyGroup : 0,
+      replyId: "user1",
+      replyContent: "게시글22의 리플3, depth 2",
+      replyDate: "2021/09/11"
+    },
+    {
+      replyNo: 14,
+      listNo:22,
+      depth : 0,
+      replyGroup : 1,
+      replyId: "user1",
+      replyContent: "게시글22의 리플4, depth 0",
+      replyDate: "2021/09/11"
+    },
+    {
+      replyNo: 15,
+      listNo:22,
+      depth : 1,
+      replyGroup : 1,
+      replyId: "user1",
+      replyContent: "게시글22의 리플5, depth 1",
+      replyDate: "2021/09/11"
+    },
+    {
+      replyNo: 16,
+      listNo:22,
+      depth : 2,
+      replyGroup : 1,
+      replyId: "user1",
+      replyContent: "게시글22의 리플6, depth 2",
+      replyDate: "2021/09/11"
+    }
   ]
 })
 
@@ -293,8 +325,8 @@ export const mutations = {
     state.replies.push(replyContent);    
   },
   loadComments(state, replyConetent){
-    const index = state.replies.findIndex(v => v.no ===replyContent.no);
-    state.replies[index] = 
+    const index = state.replies.findIndex(v => v.no === replyContent.listNo);
+   // state.replies[index] = 
   }
 }
    

@@ -35,13 +35,15 @@
 				</ul>  
 			</div>    
 			<div id="replyBox">
-				<ul class="replyContent" v-for="reply in repliyList" :key="reply.no">   
-					<li>{{reply.replyContent}} <button class="btn replyWrite small" @click="showRereply">대댓글쓰기</button></li>  
+				<ul class="reply-content" v-for="(reply, i) in replyList" :key="reply.no">    
+					<li :class="getPadding(reply)">┗ {{reply.replyContent}} 
+						<button class="btn replyWrite small" @click="showRereply(i)">대댓글열기</button>
+					</li>  
 					<li>{{reply.replyId}}</li>
 					<li>{{reply.replyDate}}</li>
-					<ul id="writeRereply" v-if="hideReply" :replyNo="reply.replyNo">
-						<li class="reReply">┗ <input type="text" placeholder="대댓글을 입력하세요" v-model="replyContent" ></li>
-						<li class="id"><input type="text" placeholder="ID를 입력하세요" v-model="replyId"></li>
+					<ul id="writeRereply" :replyNo="reply.replyNo" v-if="showRereCommentList[i]">	
+						<li class="reReply" :class="getPadding(reply)">┗ <input type="text" placeholder="대댓글을 입력하세요" v-model="replyContent" ></li>
+						<li class="id reReplyId"><input type="text" placeholder="ID를 입력하세요" v-model="replyId"></li>
 						<li><button class="btn reReplyWrite" @click="doWriteComment">대댓글쓰기</button></li>
 					</ul>
 				</ul> 
@@ -68,19 +70,21 @@ import { mapState } from 'vuex'
 export default { 
 	name: 'boardRead',
 	data() {
-	  return {
+		return {
 			no:'',
 			id:'',
 			title:'',
 			contents:'',
 			date:'',
+
 			replyNo: '',
 			listNo:'',
 			replyId: '', 
 			replyContent: '',
-			replyDate:'',  
-			hideReply: false,
-	  };
+			replyDate:'',   
+
+			showRereCommentList: [],     
+		};
 	},
 //    asyncData(){ 
 //         const list = $nuxt.$store.getters.list;  
@@ -89,30 +93,37 @@ export default {
 //       return {param}
 //           return { param, content } 
 //    }, 
+	props:{  
+	},
 	created() {
-		this.getDate();   
+		this.getDate();    
 	},  
+	mounted(){ 
+		this.replyList.forEach( (rl, index) => { 
+			this.showRereCommentList.push(false);
+		});  
+	},
 	computed:{
 		...mapState({ 
 			content: state => state.lists.filter(l => l.no.toString() === $nuxt.$route.params.no)[0],
-			repliyList: state => state.replies.filter( r => r.listNo.toString() === $nuxt.$route.params.no)
-		}),          
-	},  
+			replyList: state => state.replies.filter( r => r.listNo.toString() === $nuxt.$route.params.no),  
+		}),    
+	},
 	methods: {   
 		goLists(){ 
-			this.$router.push({
-			path: '/board'
+				this.$router.push({
+				path: '/board'
 			}) 
 		},   
 		doDelete(){ 
-			this.$store.dispatch('doDelete', {
-				no:this.content.no
-			})
-			.then(() => {
-				this.$router.push({
-				path: '/board'
-			})
-			}) 
+				this.$store.dispatch('doDelete', {
+					no:this.content.no
+				})
+				.then(() => {
+					this.$router.push({
+						path: '/board'
+					})
+				}) 
 			.catch(() => {
 			});
 		},  
@@ -130,25 +141,21 @@ export default {
 			} 
 			this.date= [year, getDigit(month), getDigit(day)].join("/");
 		},   
-		showRereply(){
-				if (!this.hideReply) {
-					this.$store.dispatch("loadComments", {
-						//replyNo: this.reply.replyNo,
-					});
-				}
-			this.hideReply = !this.hideReply;
+		showRereply(index){    
+			this.showRereCommentList[index] = !this.showRereCommentList[index]; 
+			this.$forceUpdate(); 
 		},
 		async doWriteComment(){ 
 			let replies = this.$store.state.replies; 
 			// console.log("get All replies : ",replies);
-			const nextReplyNo = replies.length+1;   
-			const oneMoreDepth = replies.depth+1;
+			const nextReplyNo = replies.length + 1;   
+			const oneMoreDepth = replies.depth + 1;
 		
 			let newReplyContent ={
 				replyNo: nextReplyNo,
 				listNo:this.content.no,
 				// if(){
-
+				
 				// }else{
 
 				// },
@@ -158,25 +165,33 @@ export default {
 			}     
 
 			if(!newReplyContent.replyId){
-				alert("아이디를 입력하세요");
-				// console.log(newReplyContent.replyContent);
+				alert("아이디를 입력하세요"); 
 			}
-			else if(!newReplyContent.replyContent){
-				console.log( "replyContent",newReplyContent.replyContent);
+			else if(!newReplyContent.replyContent){ 
 				alert("내용을 입력하세요");
 			} 
 			else {    
-				this.$store.dispatch("doWriteComment", newReplyContent); 
-				
+				this.$store.dispatch("doWriteComment", newReplyContent);  
 				this.replyContent ="";
 				this.replyId ="";   
 			}
-		} 
+		},
+		getPadding(reply){     
+			let depth = reply.depth; 
+			if(depth === 0){   
+				return 'replyPadding'; 
+			}else if(depth === 1){  
+				return 'replyPaddingOne';  
+			}else if(depth === 2){  
+				return  'replyPaddingTwo';  
+			}else{
+				return 'replyPaddingECT'; 
+			}  
+		}  
 	}
 }
 </script>
-<style scoped>
-
+<style scoped> 
 *{
 	list-style-type: none; 
 	font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -268,50 +283,56 @@ input:not(.searchBox input){
 	position: relative;
 	top:5px; 
 }
-.replyContent{
+.reply-content{
 	padding: 5px 0 5px 15px;
 	font-size: 14px;
 }
-.replyContent li{
+.reply-content li{
 	margin-bottom: 5px; 
-	padding: 5px 0 0 10px; 
+	padding-top:5px; 
 	display: inline-block;
 }
-.replyContent li:first-child{
+.reply-content li:first-child{
 	width:1300px;
 }
-.replyContent li:nth-of-type(2){
+.reply-content li:nth-of-type(2){
 	width:350px;
 	text-align: center;
 }
-.replyContent:not(.replyContent:last-child){
-	border-bottom: lightgray 1px dotted;
+.reply-content:not(.reply-content:last-child){
+	border-bottom: lightgray 1px dotted;;
 }
 #writeRereply{
 	border-top:1px lightgray dotted;
+	display:inherit !important;
+	font-size:12px;
 }
 #writeReply, #writeRereply{ 
 	display: flex;
 	height:40px;
 	padding-top:2px;
-}
-
+} 
 #writeReply:not(#writeReply:last-child), #writeRereply:not(#writeRereply:last-child){ 
 	border-bottom: 1px dotted lightgray;
 }
-#writeReply input:nth-of-type(1), #writeRereply input:nth-of-type(1){
+#writeReply input:nth-of-type(1){
 	width:1340px;
-	margin: 5px 50px 0 30px;  
+	margin: 5px 30px 0 30px;  
 } 
-#writeReply>li:nth-of-type(2)> input, #writeRereply>li:nth-of-type(2)> input{
-	width:150px;
-	padding-right: 20px;
+ 
+#writeReply>li:nth-of-type(2)> input {
+	width:170px;
 	padding-left:10px;
 	margin: 5px 75px 0 30px;     
 }
+.reReplyId{
+	width:170px; 
+	position: relative;
+	top:15px;
+}
 #writeRereply>li:nth-of-type(2)> input{
 	position: relative;
-	left:50px;
+	top:-13px;	
 }
 #writeReply button, #writeRereply button{
 	margin-top:2px;
@@ -320,17 +341,16 @@ input:not(.searchBox input){
 	font-size:15px;
 }
 #writeRereply button{
-	font-size:12px;
+	font-size:13px;
 }
-.reReply{
-	padding-left:50px;
-	padding-top:3px;
-	width:1420px;
-	font-size: 15px; 
+.reReply{ 
+	width:1400px; 
+	margin-left:20px;
 }
-.reReply input{
-	position: relative;
-	top:-18px;
+.reReply input{  
+	width:1000px;
+	margin: 5px 30px 0 10px;  
+	
 }
 .btn{
   width:80px;
@@ -354,16 +374,28 @@ input[type=submit], .delete-btn, .edit-btn{
 	height: 20px;
 	margin-left:20px;
 }
-.replyWrite{
-	margin-left:10px;
+.replyWrite{ 
+	position:relative;
+	left:-3px;
 }
 .reReplyWrite{
 	width:100px; 
+	position:relative; 
+	left:-30px;
+}
+.replyPadding{
+	padding-left:10px;
+}
+.replyPaddingOne{
+	padding-left:40px;
+}
+.replyPaddingTwo{
+	padding-left:60px;
+}
+.replyPaddingECT{
+	padding-left:90px; 
 }
 input:focus {
 	outline:none;
-} 
-.id{
-	text-align: center;
-}
+}    
 </style>
