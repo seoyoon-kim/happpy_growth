@@ -36,22 +36,26 @@
 			</div>    
 			<div id="replyBox">
 				<ul class="reply-content" v-for="(reply, i) in replyList" :key="reply.no">    
-					<li :class="getPadding(reply)">┗ {{reply.replyContent}} 
+					<li :class="getPadding(reply)">
+						┗ {{reply.replyContent}} 
 						<button class="btn replyWrite small" @click="showRereply(i)">대댓글열기</button>
 					</li>  
 					<li>{{reply.replyId}}</li>
 					<li>{{reply.replyDate}}</li>
 					<ul id="writeRereply" :replyNo="reply.replyNo" v-if="showRereCommentList[i]">	
-						<li class="reReply" :class="getPadding(reply)">┗ <input type="text" placeholder="대댓글을 입력하세요" v-model="replyContent" ></li>
+						<li class="reReply" :class="getPadding(reply)">
+							┗ <input type="text" placeholder="대댓글을 입력하세요" v-model="reply.replyContent" >
+						</li>
 						<li class="id reReplyId"><input type="text" placeholder="ID를 입력하세요" v-model="replyId"></li>
-						<li><button class="btn reReplyWrite" @click="doWriteComment">대댓글쓰기</button></li>
+						<li><button class="btn reReplyWrite" @click="doWriteRereply(reply)">대댓글쓰기</button></li>
+						<li style="display:none">{{reply.replyGroup}}</li>
 					</ul>
 				</ul> 
 				 
 				<ul id="writeReply">
 					<li><input type="text" placeholder="┗ 댓글을 입력하세요" v-model="replyContent" ></li>
 					<li class="id"><input type="text" placeholder="ID를 입력하세요" v-model="replyId"></li>
-					<li><button class="btn replyWrite" @click="doWriteComment">댓글쓰기</button></li>
+					<li><button class="btn replyWrite" @click="doWriteComment(replyContent, replyId)">댓글쓰기</button></li>
 				</ul>
 			</div>    
 		</div>    
@@ -80,6 +84,8 @@ export default {
 			replyNo: '',
 			listNo:'',
 			replyId: '', 
+			depth : '',
+			replyGroup : '',
 			replyContent: '',
 			replyDate:'',   
 
@@ -145,37 +151,6 @@ export default {
 			this.showRereCommentList[index] = !this.showRereCommentList[index]; 
 			this.$forceUpdate(); 
 		},
-		async doWriteComment(){ 
-			let replies = this.$store.state.replies; 
-			// console.log("get All replies : ",replies);
-			const nextReplyNo = replies.length + 1;   
-			const oneMoreDepth = replies.depth + 1;
-		
-			let newReplyContent ={
-				replyNo: nextReplyNo,
-				listNo:this.content.no,
-				// if(){
-				
-				// }else{
-
-				// },
-				replyId: this.replyId,
-				replyContent: this.replyContent,
-				replyDate:this.date
-			}     
-
-			if(!newReplyContent.replyId){
-				alert("아이디를 입력하세요"); 
-			}
-			else if(!newReplyContent.replyContent){ 
-				alert("내용을 입력하세요");
-			} 
-			else {    
-				this.$store.dispatch("doWriteComment", newReplyContent);  
-				this.replyContent ="";
-				this.replyId ="";   
-			}
-		},
 		getPadding(reply){     
 			let depth = reply.depth; 
 			if(depth === 0){   
@@ -187,7 +162,65 @@ export default {
 			}else{
 				return 'replyPaddingECT'; 
 			}  
-		}  
+		}  ,
+		async doWriteComment(replyContent, replyId){ 
+			if(replyId.trim() ===''){
+				alert("아이디를 입력하세요"); 
+			}
+			else if(replyContent.trim() ===''){ 
+				alert("내용을 입력하세요");
+			} 
+			else {  
+				let replies =  await this.$store.state.replies;  
+				const nextReplyNo = replies.length + 1;   
+				let nextReplyGroup = 0;
+				replies.forEach((reply) => 
+				{   
+					if( nextReplyGroup < reply.replyGroup){
+						nextReplyGroup = reply.replyGroup +1; 
+					}}  
+				); 
+
+				let newReplyContent ={
+					replyNo : nextReplyNo,
+					listNo : this.content.no,
+					depth : 0,
+					replyGroup : nextReplyGroup,
+					replyId : this.replyId,
+					replyContent : this.replyContent,
+					replyDate : this.date
+				}      
+			  
+				this.$store.dispatch("doWriteComment", newReplyContent);  
+				this.replyContent ="";
+				this.replyId ="";   
+			}
+		},
+		async doWriteRereply(reply){
+				if(reply.replyId.trim() ===''){
+				alert("아이디를 입력하세요"); 
+			}
+			else if(reply.replyContent.trim() ===''){ 
+				alert("내용을 입력하세요");
+			} 
+			else {  
+				let replies =  await this.$store.state.replies;  
+				const nextReplyNo = replies.length + 1; 
+
+				let newReplyContent ={
+					replyNo : nextReplyNo,
+					listNo : this.content.no,
+					depth : 0,
+					replyId : this.replyId,
+					replyContent : this.replyContent,
+					replyDate : this.date
+				}      
+			  
+				this.$store.dispatch("doWriteComment", newReplyContent);  
+				this.replyContent ="";
+				this.replyId ="";   
+			}
+		}
 	}
 }
 </script>
