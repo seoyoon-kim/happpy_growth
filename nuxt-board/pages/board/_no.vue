@@ -35,19 +35,30 @@
 				</ul>  
 			</div>    
 			<div id="replyBox">
-				<ul class="reply-content" v-for="(reply, i) in replyList" :key="reply.no">    
-					<li :class="getPadding(reply)">
+				<ul class="reply-content" v-for="(reply, i) in replyList" :key="reply.replyNo">    
+					<li v-if="reply.depth === 0" class="replyPadding" >
 						┗ {{reply.replyContent}} 
-						<button class="btn replyWrite small" @click="showRereply(i)">대댓글열기</button>
+						<button class="btn replyWrite small" @click="showRereply(i)">
+							대댓글란열기
+						</button>
 					</li>  
+					<li v-else :class="getPadding(reply)" >
+                        ┗ {{reply.reReply}} 
+                        <button class="btn replyWrite small" @click="showRereply(i)">
+                            대댓글란열기
+                        </button>
 					<li>{{reply.replyId}}</li>
 					<li>{{reply.replyDate}}</li>
 					<ul id="writeRereply" :replyNo="reply.replyNo" v-if="showRereCommentList[i]">	
 						<li class="reReply" :class="getPadding(reply)">
-							┗ <input type="text" placeholder="대댓글을 입력하세요" v-model="reply.replyContent" >
+							┗ <input type="text" placeholder="대댓글을 입력하세요" v-model="reReply" >
 						</li>
-						<li class="id reReplyId"><input type="text" placeholder="ID를 입력하세요" v-model="replyId"></li>
-						<li><button class="btn reReplyWrite" @click="doWriteRereply(reply)">대댓글쓰기</button></li>
+						<li class="id reReplyId"><input type="text" placeholder="ID를 입력하세요" v-model="reReplyId"></li>
+						<li>
+							<button class="btn reReplyWrite" @click="doWriteRereply(reply, replyId , reReply)">
+								대댓글쓰기
+							</button>
+						</li>
 						<li style="display:none">{{reply.replyGroup}}</li>
 					</ul>
 				</ul> 
@@ -87,6 +98,7 @@ export default {
 			depth : '',
 			replyGroup : '',
 			replyContent: '',
+            reReply : '',
 			replyDate:'',   
 
 			showRereCommentList: [],     
@@ -188,6 +200,7 @@ export default {
 					replyGroup : nextReplyGroup,
 					replyId : this.replyId,
 					replyContent : this.replyContent,
+                    reReply :"",
 					replyDate : this.date
 				}      
 			  
@@ -196,29 +209,30 @@ export default {
 				this.replyId ="";   
 			}
 		},
-		async doWriteRereply(reply){
-				if(reply.replyId.trim() ===''){
+		async doWriteRereply(reply, reReplyId , reReply){
+				if(this.reReplyId.trim() ===''){
 				alert("아이디를 입력하세요"); 
 			}
-			else if(reply.replyContent.trim() ===''){ 
+			else if(this.reReply.trim() ===''){ 
 				alert("내용을 입력하세요");
 			} 
 			else {  
 				let replies =  await this.$store.state.replies;  
-				const nextReplyNo = replies.length + 1; 
-
+				const nextReplyNo = replies.length + 1;   
+   
 				let newReplyContent ={
 					replyNo : nextReplyNo,
 					listNo : this.content.no,
-					depth : 0,
-					replyId : this.replyId,
-					replyContent : this.replyContent,
+					depth : reply.depth + 1,
+					replyId : this.reReplyId,
+					replyContent : "",
+                    reReply : this.reReply, 
 					replyDate : this.date
 				}      
-			  
+			   console.log("newReplyContent",newReplyContent);
 				this.$store.dispatch("doWriteComment", newReplyContent);  
-				this.replyContent ="";
-				this.replyId ="";   
+				this.reReply ="";
+				this.reReplyId ="";   
 			}
 		}
 	}

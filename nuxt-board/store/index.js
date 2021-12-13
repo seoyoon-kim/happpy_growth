@@ -164,7 +164,8 @@ export const state = () => ( {
       depth : 1,
       replyGroup : 1,
       replyId: "user1",
-      replyContent: "게시글1의 리플1",
+      replyContent: "",
+      reReply : "게시글1의 리플1",
       replyDate: "2021/09/11"
     },
     {
@@ -173,7 +174,8 @@ export const state = () => ( {
       depth : 1,
       replyGroup : 2,
       replyId: "user1",
-      replyContent: "게시글1의 리플2",
+      replyContent: "",
+      reReply :"게시글1의 리플2",
       replyDate: "2021/09/11"
     },
     {
@@ -182,7 +184,8 @@ export const state = () => ( {
       depth : 1,
       replyGroup : 1,
       replyId: "user1",
-      replyContent: "게시글3의 리플3",
+      replyContent: "",
+      reReply : "게시글3의 리플3",
       replyDate: "2021/09/11"
     },
     {
@@ -191,7 +194,8 @@ export const state = () => ( {
       depth : 1,
       replyGroup : 1,
       replyId: "user1",
-      replyContent: "게시글2의 리플1",
+      replyContent: "",
+      reReply : "게시글2의 리플1",
       replyDate: "2021/09/11"
     },
     {
@@ -200,7 +204,8 @@ export const state = () => ( {
       depth : 1,
       replyGroup : 2,
       replyId: "user1",
-      replyContent: "게시글3의 리플1",
+      replyContent: "",
+      reReply : "게시글3의 리플1",
       replyDate: "2021/09/11"
     },
     {
@@ -209,7 +214,8 @@ export const state = () => ( {
       depth : 1,
       replyGroup : 3,
       replyId: "user1",
-      replyContent: "게시글3의 리플2",
+      replyContent: "",
+      reReply : "게시글3의 리플2",
       replyDate: "2021/09/11"
     }, 
     {
@@ -218,7 +224,8 @@ export const state = () => ( {
       depth : 1,
       replyGroup : 1,
       replyId: "user1",
-      replyContent: "게시글4의 리플1",
+      replyContent: "",
+      reReply : "게시글4의 리플1",
       replyDate: "2021/09/11"
     }, 
     {
@@ -227,7 +234,8 @@ export const state = () => ( {
       depth : 1,
       replyGroup : 2,
       replyId: "user1",
-      replyContent: "게시글4의 리플2",
+      replyContent: "",
+      reReply : "게시글4의 리플2",
       replyDate: "2021/09/11"
     }, 
     {
@@ -236,7 +244,8 @@ export const state = () => ( {
       depth : 1,
       replyGroup : 1,
       replyId: "user1",
-      replyContent: "게시글5의 리플1, depth 1",
+      replyContent: "",
+      reReply : "게시글5의 리플1, depth 1",
       replyDate: "2021/09/11"
     }, 
     {
@@ -245,7 +254,8 @@ export const state = () => ( {
       depth : 1,
       replyGroup : 2,
       replyId: "user1",
-      replyContent: "게시글5의 리플2, depth 1",
+      replyContent: "",
+      reReply : "게시글5의 리플2, depth 1",
       replyDate: "2021/09/11"
     },
     {
@@ -255,6 +265,7 @@ export const state = () => ( {
       replyGroup : 0,
       replyId: "user1",
       replyContent: "게시글22의 리플1, depth 0",
+      reReply : '',
       replyDate: "2021/09/11"
     },
     {
@@ -263,7 +274,8 @@ export const state = () => ( {
       depth : 1,
       replyGroup : 0,
       replyId: "user1",
-      replyContent: "게시글22의 리플2, depth 1",
+      replyContent: "",
+      reReply : "게시글22의 리플2, depth 1",
       replyDate: "2021/09/11"
     },
     {
@@ -272,34 +284,38 @@ export const state = () => ( {
       depth : 2,
       replyGroup : 0,
       replyId: "user1",
-      replyContent: "게시글22의 리플3, depth 2",
+      replyContent: "",
+      reReply : "게시글22의 리플3, depth 2",
       replyDate: "2021/09/11"
     },
     {
       replyNo: 14,
       listNo:22,
       depth : 0,
-      replyGroup : 1,
+      replyGroup : 2,
       replyId: "user1",
       replyContent: "게시글22의 리플4, depth 0",
+      reReply : '',
       replyDate: "2021/09/11"
     },
     {
       replyNo: 15,
       listNo:22,
       depth : 1,
-      replyGroup : 1,
+      replyGroup : 2,
       replyId: "user1",
-      replyContent: "게시글22의 리플5, depth 1",
+      replyContent: "",
+      reReply : "게시글22의 리플5, depth 1",
       replyDate: "2021/09/11"
     },
     {
       replyNo: 16,
       listNo:22,
       depth : 2,
-      replyGroup : 1,
+      replyGroup : 2,
       replyId: "user1",
-      replyContent: "게시글22의 리플6, depth 2",
+      replyContent: "",
+      reReply : "게시글22의 리플6, depth 2",
       replyDate: "2021/09/11"
     }
   ]
