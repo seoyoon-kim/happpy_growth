@@ -82,7 +82,7 @@ export const actions = {
       });
   },
   logOut({ commit }) {
-    this.$axios.post('http://localhost:3085/user/logout', {}, {
+    this.$axios.post('/user/logout', {}, { //빈 괄호는 data 부분
       withCredentials: true,
     })
       .then((data) => {

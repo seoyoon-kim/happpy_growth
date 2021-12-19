@@ -9,7 +9,9 @@ const morgan = require('morgan');
 const db = require('./models');
 const passportConfig = require('./passport');
 const userRouter = require('./routes/user');
-const postRouter = require('./routes/post');
+const postRouter = require('./routes/post'); 
+const postsRouter = require('./routes/posts');
+const hashtagRouter = require('./routes/hashtag');
 const app = express();
 
 db.sequelize.sync(); //db 실행
@@ -45,71 +47,11 @@ app.get('/', (req, res) => {
 });
 
 app.use('/user', userRouter);
-app.use('/post', postRouter);
-
-app.post('/post', (req, res) => {
-	if (req.isAuthenticated()) {
-
-	}
-});
-
-app.post('/user', async (req, res, next)=>{
-	try{
-		const hash = await bcrypt.hash(req.body.password, 12); //비밀번호 암호화, 숫자는 암호화 정도라 높을수록 암호화 강함
-		const exUser = await db.User.findOne({
-			where:{ email : req.body.email }     
-		});
-		if(exUser){//이미 회원가입 되어있으면
-			return res.status(403).json({//403은 금ㄱ지
-				errorCode: 1,//임의 지정
-				message:'이미 회원가입 되어있습니다',
-			})
-			//return res.status(403).send('이미 회원가입 되어있습니다')//잘못된 요청
-		}
-		const newUser = await db.User.create({
-			email : req.body.email, 
-			password : hash,
-			nickname : req. body.nickname
-		});
-		res.status(201).json(newUser); //200은 성공, 201은 성공적으로 생성됨
-	}catch(err){
-		console.log(err);
-		return res.status(500).json({
-			message:'회원가입 에러 발생'
-		});
-		next(err);
-	}
-});
-
-const user = {};
-
-app.post('/user/login', (req, res) => {
-//   req.body.email;
-//   req.body,password;
-//   await db.User.findOne(); //세션에 저장
-//   user[cookie] = 유저정보;  //프런트에 쿠키 내려주기
-passport.authenticate('local', (err, user, info) => {//에러, 성공, 실패
-	if(err){
-		console.error(err);
-		return next(err);
-	}
-	if(info){
-		console.error(err);
-		return res.status(401).send(info.reason);//잘못된 요청으로 서버에서 거절
-	}
-	return req.login(user, async(err)=>{ //세션에 사용자 정보 id만 저장(어떻게? serializeUser)
-		if(err){
-			console.error(err);
-			return next(err);
-		}	 
-		return res.json(user); //프론트에 사용자 정보 데이터 넘겨주기
-	})
-})(req, res, next);
-	
-});
-
+app.use('/post', postRouter); 
+app.use('/posts', postsRouter);
+app.use('/hashtag', hashtagRouter); 
+  
 app.listen(3085, () => {
 	console.log(`백엔드 서버 ${3085}번 포트에서 작동중.`);
 });
-
- //프론트와 회원가입 연동하기
+ //1대 다 관계
