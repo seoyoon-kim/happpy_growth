@@ -234,9 +234,15 @@ export default {
 				this.reReply ="";
 				this.reReplyId ="";   
 			}
+		},
+		orderedLists(replyList){
+			this.replyGroup.sort(a,b =>{
+				return a.replyGroup -b.replyGroupy
+				});
+			}
+
 		}
-	}
-}
+	} 
 </script>
 <style scoped> 
 *{

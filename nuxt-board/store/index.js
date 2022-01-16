@@ -264,7 +264,7 @@ export const state = () => ( {
       depth : 0,
       replyGroup : 0,
       replyId: "user1",
-      replyContent: "게시글22의 리플1, depth 0",
+      replyContent: "게시글22의 리플1, depth 0/ group 0 replyNo 11",
       reReply : '',
       replyDate: "2021/09/11"
     },
@@ -275,7 +275,7 @@ export const state = () => ( {
       replyGroup : 0,
       replyId: "user1",
       replyContent: "",
-      reReply : "게시글22의 리플2, depth 1",
+      reReply : "게시글22의 리플2, depth 1/ group 0 replyNo 12",
       replyDate: "2021/09/11"
     },
     {
@@ -285,7 +285,7 @@ export const state = () => ( {
       replyGroup : 0,
       replyId: "user1",
       replyContent: "",
-      reReply : "게시글22의 리플3, depth 2",
+      reReply : "게시글22의 리플3, depth 2/ group 0 replyNo 13",
       replyDate: "2021/09/11"
     },
     {
@@ -294,7 +294,7 @@ export const state = () => ( {
       depth : 0,
       replyGroup : 2,
       replyId: "user1",
-      replyContent: "게시글22의 리플4, depth 0",
+      replyContent: "게시글22의 리플4, depth 0/ group 2 replyNo 14",
       reReply : '',
       replyDate: "2021/09/11"
     },
@@ -305,7 +305,7 @@ export const state = () => ( {
       replyGroup : 2,
       replyId: "user1",
       replyContent: "",
-      reReply : "게시글22의 리플5, depth 1",
+      reReply : "게시글22의 리플5, depth 1/ group 2 replyNo 15",
       replyDate: "2021/09/11"
     },
     {
@@ -315,7 +315,17 @@ export const state = () => ( {
       replyGroup : 2,
       replyId: "user1",
       replyContent: "",
-      reReply : "게시글22의 리플6, depth 2",
+      reReply : "게시글22의 리플6, depth 2/ group 2 replyNo 16",
+      replyDate: "2021/09/11"
+    },
+    {
+      replyNo: 17,
+      listNo:22,
+      depth : 3,
+      replyGroup : 0,
+      replyId: "user1",
+      replyContent: "",
+      reReply : "게시글22의 리플7, depth 3/ group 0 replyNo 17",
       replyDate: "2021/09/11"
     }
   ]
