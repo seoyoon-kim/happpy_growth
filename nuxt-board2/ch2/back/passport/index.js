@@ -9,7 +9,7 @@ module.exports = () => {
   });
   passport.deserializeUser(async (id, done) => {
     try {
-      const user = await db.User.findOne({ where: { id } });
+      const user = await db.User.findOne({ where: { id } }); //프론트는 db접속을 줄이고 캐싱을 통해 해결한다.
       return done(null, user); // req.user에 정보를 리턴함, req.isAuthenticated() === true 로 전환,
     } catch (err) {
       console.error(err);

@@ -53,12 +53,12 @@ export const mutations = {
 
 export const actions = {
   signUp({ commit, state }, payload) {
-    this.$axios.post('http://localhost:3085/user', {
+    this.$axios.post('http://localhost:3085/user/login', {
       email: payload.email,
       nickname: payload.nickname,
       password: payload.password,
     }, {
-      withCredentials: true,
+      withCredentials: true,//쿠키가 서로 저장이 됨
     })
       .then((res) => {
         commit('setMe', res.data);
@@ -82,14 +82,17 @@ export const actions = {
       });
   },
   logOut({ commit }) {
-    this.$axios.post('/user/logout', {}, { //빈 괄호는 data 부분
+    this.$axios.post('http://localhost:3085/user/logout', {
+      email: payload.email, //data 담기, data가 없으면 빈 괄호로 놔두기
+      password: payload.password,
+    }, {
       withCredentials: true,
     })
-      .then((data) => {
-        commit('setMe', null);
-      })
-      .catch((err) => {
-        console.error(err);
+    .then((res) => {
+      commit('setMe', null);
+    })
+    .catch((err) => {
+      console.error(err);
       });
 
   },

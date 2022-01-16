@@ -8,13 +8,13 @@ const morgan = require('morgan');
 
 const db = require('./models');
 const passportConfig = require('./passport');
-const userRouter = require('./routes/user');
+const usersRouter = require('./routes/users');
 const postRouter = require('./routes/post'); 
 const postsRouter = require('./routes/posts');
 const hashtagRouter = require('./routes/hashtag');
 const app = express();
 
-db.sequelize.sync(); //db 실행
+db.sequelize.sync({force: true}); //db 실행
 //db.sequelize.sync({ force:true }); //서버 시작시마다 db 테이블 날리고 새로 만듦
 passportConfig();
 
@@ -43,14 +43,86 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', (req, res) => {
-	res.status(200).send('안녕 제로초');
+	res.status(200).send('안녕 growth');
 });
 
-app.use('/user', userRouter);
-app.use('/post', postRouter); 
-app.use('/posts', postsRouter);
-app.use('/hashtag', hashtagRouter); 
-  
+app.use('/user', usersRouter); //user + Router의 주소
+
+app.post('/user', async (req, res, next) =>{ //회원가입
+	try{
+		const has = await bcrypt.hash(req.body.password, 12);
+		const exUser = await db.User.findOne({
+			where : {
+				email : req.body.email,
+			},
+		});
+		if (exUser) { //회원가입 되어있으면
+			return res.status(403).json({
+				errorCode : 1,
+				message : '이미 회원가입 되어있습니다',				
+			});	
+		}
+		await db.User.create({
+			email: req.body.email,
+			password: hash,
+			nickname: req.body.nickname,
+
+		}); //HTTP STATUS CODE
+		passport.authenticate('local', (err, user, info) =>{
+			if (err){
+				console.log(err);
+				return next(err);
+			}
+			if (info){
+				return res.status(401).send(info.reason);
+			}
+			return req.login(user, async (err) =>{ //세션에다 사용자 정보 저장 : serializeUser
+				if (err){
+					console.error(err);
+					return next(err);
+				}
+				return res.json(user);
+			});
+		})(req, res, next);
+	} catch (err){
+		console.log(err);
+		return next(err);
+	}
+});
+
+app.post('/user/login', (req, res, next) => {
+	passport.authenticate('local', (err, user, info) => {
+		if (err){
+			console.error(err);
+			return next(err);
+		}
+		if (info) {
+			return res.status(401).send(info.reason);
+		}
+		return req.login(user, async(err) => { //session에 사용자 정보 저장 : serializeUser
+			if (err){
+				console.log(err);
+				return next(err);
+			}
+			return res.json(user);
+		});
+	})(req, res, next);
+}); 
+
+app.post('/user/logout', (req, res) => {
+	if (req.isAuthenticated()){
+		req.logout();
+		teq.session.destroy(); //session에 사용자 정보 아닌 다른 정보도 있을 수 있기 때문에, 이 코드는 선택사항.
+		return res.status(200).send('로그아웃 되었습니다.');
+	}
+});
+
+app.post('/post', (req, res) => {
+	if (req.isAuthenticated()) {
+		
+	}
+  });
+
 app.listen(3085, () => {
 	console.log(`백엔드 서버 ${3085}번 포트에서 작동중.`);
 });
