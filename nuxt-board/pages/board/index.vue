@@ -195,18 +195,9 @@
 	/*페이지네이션*/
 	.list-pagination{
 		text-align: center; 
-	}
-	.theme--light, .v-pagination, .v-pagination__item--active{
-		background-color: aqua;
-	}
+	} 
 	.pagination-container {
 		background: #fff;
 		padding: 32px 16px;
-	}
-	.pagination-container.hidden {
-		display: none;
-	}  
-	.theme--light.v-pagination .v-pagination__item--active {
-		color: black !important;
 	} 
 </style>

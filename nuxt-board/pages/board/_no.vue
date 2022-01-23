@@ -127,6 +127,13 @@ export default {
 			replyList: state => state.replies.filter( r => r.listNo.toString() === $nuxt.$route.params.no),  
 		}),    
 	},
+	watch: {
+		orderedLists(newVal, oldVal){
+			this.replyGroup.sort(a,b =>{
+				return a.replyGroup -b.replyGroupy
+			});
+		}
+	},
 	methods: {   
 		goLists(){ 
 				this.$router.push({
@@ -235,15 +242,10 @@ export default {
 				this.reReplyId ="";   
 			}
 		},
-		orderedLists(replyList){
-			this.replyGroup.sort(a,b =>{
-				return a.replyGroup -b.replyGroupy
-				});
-			}
-
-		}
 	} 
+}
 </script>
+
 <style scoped> 
 *{
 	list-style-type: none; 
